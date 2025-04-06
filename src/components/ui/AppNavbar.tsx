@@ -1,8 +1,10 @@
 import { Keyboard, Menu, ShoppingCart, X } from "lucide-react";
-import { ReactNode, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
 import { Button } from "./button";
+import AppNavLink from "./AppNavLink";
+import { navItems } from "@/constants/navbar.items";
 
 const AppNavbar = () => {
   const location = useLocation();
@@ -23,6 +25,8 @@ const AppNavbar = () => {
     setIsMobileMenuOpen(false);
   }, [location]);
 
+  
+
   return (
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
@@ -33,31 +37,18 @@ const AppNavbar = () => {
     >
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
-          <Link to="/" className="flex items-center space-x-2">
+          <Link to="/" className="flex items-center space-x-1">
             <Keyboard className="h-6 w-6" />
-            <span className="font-bold text-xl">KeyboardHub</span>
+            <span className="font-bold text-xl">KeyTactile</span>
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-6">
-            <NavLink to="/" active={location.pathname === "/"}>
-              Home
-            </NavLink>
-            <NavLink to="/products" active={location.pathname === "/products"}>
-              Products
-            </NavLink>
-            <NavLink to="/about" active={location.pathname === "/about"}>
-              About
-            </NavLink>
-            <NavLink to="/contact" active={location.pathname === "/contact"}>
-              Contact
-            </NavLink>
-            <NavLink
-              to="/dashboard"
-              active={location.pathname === "/dashboard"}
-            >
-              Dashboard
-            </NavLink>
+            {navItems.map(({ label, to }) => (
+              <AppNavLink key={label} to={to} active={location.pathname === to}>
+                {label}
+              </AppNavLink>
+            ))}
           </div>
 
           <div className="flex items-center space-x-4">
@@ -99,49 +90,15 @@ const AppNavbar = () => {
           }`}
         >
           <div className="flex flex-col space-y-4 pb-6">
-            <NavLink to="/" active={location.pathname === "/"}>
-              Home
-            </NavLink>
-            <NavLink to="/products" active={location.pathname === "/products"}>
-              Products
-            </NavLink>
-            <NavLink to="/about" active={location.pathname === "/about"}>
-              About
-            </NavLink>
-            <NavLink to="/contact" active={location.pathname === "/contact"}>
-              Contact
-            </NavLink>
-            <NavLink
-              to="/dashboard"
-              active={location.pathname === "/dashboard"}
-            >
-              Dashboard
-            </NavLink>
+            {navItems.map(({ label, to }) => (
+              <AppNavLink key={label} to={to} active={location.pathname === to}>
+                {label}
+              </AppNavLink>
+            ))}
           </div>
         </div>
       </div>
     </nav>
-  );
-};
-
-const NavLink = ({
-  to,
-  active,
-  children,
-}: {
-  to: string;
-  active: boolean;
-  children: ReactNode;
-}) => {
-  return (
-    <Link
-      to={to}
-      className={`text-sm font-medium transition-colors hover:text-primary ${
-        active ? "text-primary" : "text-muted-foreground"
-      }`}
-    >
-      {children}
-    </Link>
   );
 };
 

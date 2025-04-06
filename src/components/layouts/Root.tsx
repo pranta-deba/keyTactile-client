@@ -1,8 +1,10 @@
+import { useAppSelector } from "@/redux/hooks";
 import { useEffect } from "react";
-import { useAppSelector } from "./redux/hooks";
-import AppNavbar from "./components/ui/AppNavbar";
+import AppNavbar from "../ui/AppNavbar";
+import { Outlet } from "react-router-dom";
+import AppFooter from "../ui/AppFooter";
 
-function App() {
+const Root = () => {
   const currentTheme = useAppSelector((state) => state.theme.theme);
 
   useEffect(() => {
@@ -21,10 +23,13 @@ function App() {
   }, [currentTheme]);
 
   return (
-    <>
-     <AppNavbar/>
-    </>
+    <div className="min-h-screen flex flex-col">
+      <AppNavbar />
+      <main className="flex-grow container mx-auto px-4 mt-[64px]">
+        <Outlet />
+      </main>
+      <AppFooter />
+    </div>
   );
-}
-
-export default App;
+};
+export default Root;
