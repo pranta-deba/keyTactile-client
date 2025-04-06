@@ -10,9 +10,9 @@ const FeaturedProducts = () => {
       <h2 className="text-3xl font-bold mb-8 text-center md:text-start">
         Featured Products
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6">
         {featuredProducts.map((product) => (
-          <Card key={product._id}>
+          <Card key={product._id} >
             <CardHeader>
               <img
                 src={product.image}
@@ -20,10 +20,10 @@ const FeaturedProducts = () => {
                 className="w-full h-48 object-cover rounded-t-lg"
               />
             </CardHeader>
-            <CardContent>
+            <CardContent className="flex flex-col gap-2">
               <h3 className="font-semibold text-lg">{product.name}</h3>
               <p className="text-muted-foreground">{product.brand}</p>
-              <div className="flex items-center gap-2 mt-2">
+              <div className="flex items-center gap-2">
                 {Array.from({ length: 5 }).map((_, i) => (
                   <Star
                     key={i}
@@ -35,7 +35,7 @@ const FeaturedProducts = () => {
                   />
                 ))}
               </div>
-              <p className="mt-2 font-bold">${product.price}</p>
+              <p className="font-bold">${product.price}</p>
             </CardContent>
             <CardFooter>
               <Button className="w-full" asChild>

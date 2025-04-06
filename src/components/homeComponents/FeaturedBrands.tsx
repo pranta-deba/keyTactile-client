@@ -1,9 +1,11 @@
 import { brands } from "@/constants/home.constants";
 
 const FeaturedBrands = () => {
-    return (
-        <section className="container mx-auto px-4">
-      <h2 className="text-3xl font-bold mb-8 text-center md:text-start">Featured Brands</h2>
+  return (
+    <section className="container mx-auto px-4">
+      <h2 className="text-3xl font-bold mb-8 text-center md:text-start">
+        Featured Brands
+      </h2>
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
         {brands.map((brand, index) => (
           <div key={index} className="flex flex-col items-center gap-2">
@@ -17,7 +19,7 @@ const FeaturedBrands = () => {
         ))}
       </div>
     </section>
-    );
+  );
 };
 
 export default FeaturedBrands;

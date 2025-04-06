@@ -1,6 +1,7 @@
 import AppHero from "@/components/homeComponents/AppHero";
 import FeaturedBrands from "@/components/homeComponents/FeaturedBrands";
 import FeaturedProducts from "@/components/homeComponents/FeaturedProducts";
+import Reviews from "@/components/homeComponents/Reviews";
 import Services from "@/components/homeComponents/Services";
 
 const Home = () => {
@@ -10,6 +11,7 @@ const Home = () => {
       <Services />
       <FeaturedProducts />
       <FeaturedBrands/>
+      <Reviews/>
     </div>
   );
 };
