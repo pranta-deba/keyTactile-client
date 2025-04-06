@@ -125,3 +125,24 @@ export const brands = [
   },
   // Add more brands here...
 ];
+
+export const whyChooses = [
+  {
+    _id: "1",
+    question: "Is it accessible?",
+    ans: `Yes. It comes with default styles that matches the other
+          components&apos; aesthetic.`,
+  },
+  {
+    _id: "2",
+    question: "Is it accessible?",
+    ans: `Yes. It comes with default styles that matches the other
+          components&apos; aesthetic.`,
+  },
+  {
+    _id: "3",
+    question: "Is it accessible?",
+    ans: `Yes. It comes with default styles that matches the other
+          components&apos; aesthetic.`,
+  },
+];
