@@ -2,11 +2,14 @@ import { featuredProducts } from "@/constants/home.constants";
 import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
 import { Star } from "lucide-react";
 import { Button } from "../ui/button";
+import { Link } from "react-router-dom";
 
 const FeaturedProducts = () => {
   return (
     <section id="featured" className="container mx-auto px-4">
-      <h2 className="text-3xl font-bold mb-8">Featured Products</h2>
+      <h2 className="text-3xl font-bold mb-8 text-center md:text-start">
+        Featured Products
+      </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {featuredProducts.map((product) => (
           <Card key={product._id}>
@@ -36,7 +39,7 @@ const FeaturedProducts = () => {
             </CardContent>
             <CardFooter>
               <Button className="w-full" asChild>
-                <a href={`/products/${product._id}`}>View Details</a>
+                <Link to={`/products/${product._id}`}>View Details</Link>
               </Button>
             </CardFooter>
           </Card>
@@ -44,7 +47,7 @@ const FeaturedProducts = () => {
       </div>
       <div className="mt-8 text-center">
         <Button variant="outline" size="lg" asChild>
-          <a href="/products">View All Products</a>
+          <Link to="/products">View All Products</Link>
         </Button>
       </div>
     </section>
