@@ -1,7 +1,6 @@
 import { useEffect } from "react";
-import ThemeToggle from "./components/ThemeToggle/ThemeToggle";
-import { Button } from "./components/ui/button";
 import { useAppSelector } from "./redux/hooks";
+import AppNavbar from "./components/ui/AppNavbar";
 
 function App() {
   const currentTheme = useAppSelector((state) => state.theme.theme);
@@ -23,13 +22,7 @@ function App() {
 
   return (
     <>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
-      <div className="">
-        <Button>Click me</Button>
-      </div>
-      <div>
-        <ThemeToggle />
-      </div>
+     <AppNavbar/>
     </>
   );
 }
