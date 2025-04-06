@@ -1,9 +1,11 @@
+import AppHero from "@/components/ui/AppHero";
+
 const Home = () => {
-    return (
-        <div>
-            <h1>Home</h1>
-        </div>
-    );
+  return (
+    <div className="flex flex-col gap-16">
+      <AppHero />
+    </div>
+  );
 };
 
 export default Home;
