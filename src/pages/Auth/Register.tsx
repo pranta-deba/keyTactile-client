@@ -2,17 +2,44 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useRegisterUserMutation } from "@/redux/features/auth/authApi";
+import { setUser } from "@/redux/features/auth/authSlice";
+import { useAppDispatch } from "@/redux/hooks";
 import { FieldValues, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const Register = () => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const [registerUser] = useRegisterUserMutation();
 
-  const onSubmit = (data: FieldValues) => {
+  const onSubmit = async (data: FieldValues) => {
     console.log("Register Data:", data);
+    const toastId = toast.loading("login in....");
 
-    navigate("/");
+    try {
+      const res = await registerUser(data).unwrap();
+      if (res.success) {
+        const { _id, email, image, name, userName, phone } = res.data;
+        dispatch(
+          setUser({
+            user: { _id, email, image, name, userName, phone },
+            token: res.token,
+          })
+        );
+        toast.success("Login success", { id: toastId });
+        navigate("/");
+      } else {
+        toast.error(res.message || "something went wrong", { id: toastId });
+      }
+    } catch (error) {
+      const err = error as { data?: { message?: string } };
+      toast.error(err?.data?.message || "something went wrong", {
+        id: toastId,
+      });
+    }
   };
   return (
     <div className="min-h-screen flex items-center justify-center p-2">
