@@ -11,10 +11,11 @@ const Register = () => {
 
   const onSubmit = (data: FieldValues) => {
     console.log("Register Data:", data);
-   
+
+    navigate("/");
   };
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
+    <div className="min-h-screen flex items-center justify-center p-2">
       <Card className="w-full max-w-3xl shadow-2xl rounded-2xl">
         <CardHeader>
           <CardTitle className="text-center text-2xl font-bold">
@@ -33,6 +34,7 @@ const Register = () => {
                 id="name"
                 {...register("name", { required: true })}
                 placeholder="Enter your name"
+                autoComplete="name"
               />
             </div>
 
@@ -53,6 +55,7 @@ const Register = () => {
               <Input
                 id="email"
                 type="email"
+                autoComplete="email"
                 {...register("email", { required: true })}
                 placeholder="Enter your email"
               />
@@ -93,8 +96,8 @@ const Register = () => {
             </div>
 
             {/* Submit Button */}
-            <div className="lg:col-span-2">
-              <Button type="submit" className=" mt-2">
+            <div className="lg:col-span-2 md:flex md:flex-col md:justify-center md:items-center">
+              <Button type="submit" className="w-full md:w-auto mt-2">
                 Register
               </Button>
               <p className="text-center text-sm mt-4">
