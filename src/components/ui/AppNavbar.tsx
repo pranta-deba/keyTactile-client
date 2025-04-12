@@ -25,8 +25,6 @@ const AppNavbar = () => {
     setIsMobileMenuOpen(false);
   }, [location]);
 
-  
-
   return (
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
@@ -63,6 +61,11 @@ const AppNavbar = () => {
                 )}
               </Button>
             </Link>
+
+            {/* Sing in */}
+            <Button>
+              <Link to={"/login"}>Sign in</Link>
+            </Button>
 
             {/* Mobile Menu Button */}
             <Button
