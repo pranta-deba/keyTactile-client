@@ -5,8 +5,11 @@ import ThemeToggle from "../ThemeToggle/ThemeToggle";
 import { Button } from "./button";
 import AppNavLink from "./AppNavLink";
 import { navItems } from "@/constants/navbar.items";
+import { useAppSelector } from "@/redux/hooks";
+import { selectedCurrentUser } from "@/redux/features/auth/authSlice";
 
 const AppNavbar = () => {
+  const user = useAppSelector(selectedCurrentUser);
   const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -24,6 +27,8 @@ const AppNavbar = () => {
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [location]);
+
+  console.log(user);
 
   return (
     <nav
@@ -63,9 +68,11 @@ const AppNavbar = () => {
             </Link>
 
             {/* Sing in */}
-            <Button>
-              <Link to={"/login"}>Sign in</Link>
-            </Button>
+            {!user && (
+              <Button>
+                <Link to={"/login"}>Sign in</Link>
+              </Button>
+            )}
 
             {/* Mobile Menu Button */}
             <Button

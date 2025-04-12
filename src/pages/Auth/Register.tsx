@@ -16,16 +16,16 @@ const Register = () => {
   const [registerUser] = useRegisterUserMutation();
 
   const onSubmit = async (data: FieldValues) => {
-    console.log("Register Data:", data);
     const toastId = toast.loading("login in....");
 
     try {
       const res = await registerUser(data).unwrap();
+
       if (res.success) {
-        const { _id, email, image, name, userName, phone } = res.data;
+        const { _id, email, image, name, userName, phone, role } = res.data;
         dispatch(
           setUser({
-            user: { _id, email, image, name, userName, phone },
+            user: { _id, email, image, name, userName, phone, role },
             token: res.token,
           })
         );
@@ -41,6 +41,7 @@ const Register = () => {
       });
     }
   };
+
   return (
     <div className="min-h-screen flex items-center justify-center p-2">
       <Card className="w-full max-w-3xl shadow-2xl rounded-2xl">

@@ -5,6 +5,7 @@ export type TUser = {
   name: string;
   userName: string;
   phone: string;
+  role: string;
 };
 
 export type UserState = {
