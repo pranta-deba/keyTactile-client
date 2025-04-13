@@ -7,6 +7,7 @@ import AppNavLink from "./AppNavLink";
 import { navItems } from "@/constants/navbar.items";
 import { useAppSelector } from "@/redux/hooks";
 import { selectedCurrentUser } from "@/redux/features/auth/authSlice";
+import AppProfileDropdown from "./AppProfileDropdown";
 
 const AppNavbar = () => {
   const user = useAppSelector(selectedCurrentUser);
@@ -57,7 +58,7 @@ const AppNavbar = () => {
           <div className="flex items-center space-x-4">
             <ThemeToggle />
             <Link to="/cart">
-              <Button variant="outline" size="icon" className="relative">
+              <Button variant="outline" size="icon" className="relative cursor-pointer">
                 <ShoppingCart className="h-5 w-5" />
                 {cartItemCount > 0 && (
                   <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground rounded-full w-5 h-5 flex items-center justify-center text-xs">
@@ -69,10 +70,12 @@ const AppNavbar = () => {
 
             {/* Sing in */}
             {!user && (
-              <Button>
+              <Button className="cursor-pointer">
                 <Link to={"/login"}>Sign in</Link>
               </Button>
             )}
+            {/* Profile avatar */}
+            <AppProfileDropdown />
 
             {/* Mobile Menu Button */}
             <Button
