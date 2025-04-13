@@ -55,10 +55,14 @@ const AppNavbar = () => {
             ))}
           </div>
 
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2 md:space-x-4">
             <ThemeToggle />
             <Link to="/cart">
-              <Button variant="outline" size="icon" className="relative cursor-pointer">
+              <Button
+                variant="outline"
+                size="icon"
+                className="relative cursor-pointer size-8"
+              >
                 <ShoppingCart className="h-5 w-5" />
                 {cartItemCount > 0 && (
                   <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground rounded-full w-5 h-5 flex items-center justify-center text-xs">
@@ -75,7 +79,7 @@ const AppNavbar = () => {
               </Button>
             )}
             {/* Profile avatar */}
-            <AppProfileDropdown />
+            {user && <AppProfileDropdown />}
 
             {/* Mobile Menu Button */}
             <Button
@@ -86,9 +90,9 @@ const AppNavbar = () => {
               aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? (
-                <X className="h-6 w-6" />
+                <X className="size-6" />
               ) : (
-                <Menu className="h-6 w-6" />
+                <Menu className="size-6" />
               )}
             </Button>
           </div>
