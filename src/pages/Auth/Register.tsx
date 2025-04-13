@@ -16,7 +16,7 @@ const Register = () => {
   const [registerUser] = useRegisterUserMutation();
 
   const onSubmit = async (data: FieldValues) => {
-    const toastId = toast.loading("login in....");
+    const toastId = toast.loading("registered in....");
 
     try {
       const res = await registerUser(data).unwrap();
@@ -29,7 +29,7 @@ const Register = () => {
             token: res.token,
           })
         );
-        toast.success("Login success", { id: toastId });
+        toast.success("Registered success", { id: toastId });
         navigate("/");
       } else {
         toast.error(res.message || "something went wrong", { id: toastId });
