@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 type Theme = "light" | "dark" | "system";
 
@@ -7,16 +7,15 @@ interface ThemeState {
 }
 
 const initialState: ThemeState = {
-  theme: (localStorage.getItem("kb-theme") as Theme) || "system",
+  theme: "system",
 };
 
 const themeSlice = createSlice({
   name: "theme",
   initialState,
   reducers: {
-    setTheme: (state, action: PayloadAction<Theme>) => {
+    setTheme: (state, action) => {
       state.theme = action.payload;
-      localStorage.setItem("kb-theme", action.payload);
 
       const root = window.document.documentElement;
       root.classList.remove("light", "dark");
