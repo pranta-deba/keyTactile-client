@@ -8,8 +8,6 @@ import { TProduct } from "@/types/products.types";
 const FeaturedProducts = () => {
   const { data: products, isLoading } = useGetAllProductsQuery(undefined);
 
-  console.log(products, isLoading);
-
   if (isLoading) {
     return (
       <div className="h-20 w-full flex justify-center items-center">

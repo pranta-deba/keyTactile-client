@@ -16,7 +16,7 @@ const AppProductCard = ({
     <Card key={_id}>
       <CardHeader>
         <img
-          src={images?.length > 0 ? images[0] : ""}
+          src={images ? (images?.length > 0 ? images[0] : "") : ""}
           alt={title}
           className="w-full h-48 object-cover rounded-t-lg"
         />
