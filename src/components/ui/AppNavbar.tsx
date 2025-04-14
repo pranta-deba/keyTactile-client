@@ -79,7 +79,7 @@ const AppNavbar = () => {
               </Button>
             )}
             {/* Profile avatar */}
-            {user && <AppProfileDropdown />}
+            {user && <AppProfileDropdown user={user}/>}
 
             {/* Mobile Menu Button */}
             <Button

@@ -10,14 +10,15 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "./dropdown-menu";
+import { TUser } from "@/types";
 
-const AppProfileDropdown = () => {
+const AppProfileDropdown = ({ user }: { user: TUser }) => {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
+      <DropdownMenuTrigger asChild className="size-10">
         <Avatar className="cursor-pointer">
-          <AvatarImage src="https://github.com/shadcn.png" />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarImage src={user?.image} />
+          <AvatarFallback>{user?.userName}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
@@ -25,12 +26,12 @@ const AppProfileDropdown = () => {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>
-            <Link to={"/"}>Profile</Link>
+            <Link to={"/profile"}>Profile</Link>
             <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
           </DropdownMenuItem>
 
           <DropdownMenuItem>
-            <Link to={"/"}>Dashboard</Link>
+            <Link to={"/dashboard"}>Dashboard</Link>
             <DropdownMenuShortcut>⌘D</DropdownMenuShortcut>
           </DropdownMenuItem>
         </DropdownMenuGroup>
