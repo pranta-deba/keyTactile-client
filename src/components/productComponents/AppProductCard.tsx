@@ -11,9 +11,10 @@ const AppProductCard = ({
   price,
   rating,
   images,
+  availableQuantity,
 }: TProduct) => {
   return (
-    <Card key={_id}>
+    <Card>
       <CardHeader>
         <img
           src={images ? (images?.length > 0 ? images[0] : "") : ""}
@@ -34,7 +35,10 @@ const AppProductCard = ({
             />
           ))}
         </div>
-        <p className="font-bold">${price}</p>
+        <div className="flex justify-between">
+          <p className="font-bold">${price}</p>
+          <p className={``}>{availableQuantity} available</p>
+        </div>
       </CardContent>
       <CardFooter>
         <Button className="w-full" asChild>
