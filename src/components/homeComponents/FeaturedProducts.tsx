@@ -6,7 +6,7 @@ import AppProductCard from "../productComponents/AppProductCard";
 import { TProduct } from "@/types/products.types";
 
 const FeaturedProducts = () => {
-  const { data: products, isLoading } = useGetAllProductsQuery(undefined);
+  const { data: products, isLoading } = useGetAllProductsQuery({ sort: "hi" });
 
   if (isLoading) {
     return (

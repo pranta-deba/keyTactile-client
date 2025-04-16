@@ -12,3 +12,10 @@ export type TProduct = {
 export type TProductState = {
   products: TProduct[];
 };
+
+export interface ProductQueryParams {
+  page?: number;
+  limit?: number;
+  search?: string;
+  sort?: string;
+}
