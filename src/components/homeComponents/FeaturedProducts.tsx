@@ -24,7 +24,7 @@ const FeaturedProducts = () => {
         Featured Products
       </h2>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6">
-        {products?.data?.map((product: TProduct) => (
+        {products?.data?.slice(0, 8).map((product: TProduct) => (
           <AppProductCard key={product._id} {...product} />
         ))}
       </div>
