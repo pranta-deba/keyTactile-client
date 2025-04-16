@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import {
   DropdownMenu,
@@ -11,8 +11,19 @@ import {
   DropdownMenuTrigger,
 } from "./dropdown-menu";
 import { TUser } from "@/types";
+import { useAppDispatch } from "@/redux/hooks";
+import { logout } from "@/redux/features/auth/authSlice";
 
 const AppProfileDropdown = ({ user }: { user: TUser }) => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const path = location?.pathname || "/";
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate(path, { replace: true });
+  };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild className="size-10">
@@ -36,7 +47,7 @@ const AppProfileDropdown = ({ user }: { user: TUser }) => {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={handleLogout}>
           Log out
           <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
         </DropdownMenuItem>
