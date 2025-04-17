@@ -2,22 +2,37 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { useCreateBrandMutation } from "@/redux/features/brands/brandsApi";
 import { TBrand } from "@/types";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 const AddBrand = () => {
+  const [createBrand] = useCreateBrandMutation();
+
   const {
     register,
     handleSubmit,
-    // reset,
+    reset,
     formState: { errors },
   } = useForm<TBrand>();
 
-  const onSubmit = (data: TBrand) => {
-    console.log("Submitted Data:", data);
-    toast.success("brand added.");
-    // reset();
+  const onSubmit = async (data: TBrand) => {
+    const toastId = toast.loading("Created in....");
+
+    try {
+      const res = await createBrand(data).unwrap();
+      
+      if (res.success) {
+        toast.success("Brand Created.", { id: toastId });
+        reset();
+      }
+    } catch (error) {
+      const err = error as { data?: { message?: string } };
+      toast.error(err?.data?.message || "something went wrong", {
+        id: toastId,
+      });
+    }
   };
 
   return (

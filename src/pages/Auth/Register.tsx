@@ -6,7 +6,7 @@ import { useRegisterUserMutation } from "@/redux/features/auth/authApi";
 import { setUser } from "@/redux/features/auth/authSlice";
 import { useAppDispatch } from "@/redux/hooks";
 import { FieldValues, useForm } from "react-hook-form";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 const Register = () => {
@@ -14,8 +14,6 @@ const Register = () => {
   const dispatch = useAppDispatch();
   const [registerUser] = useRegisterUserMutation();
   const navigate = useNavigate();
-  const location = useLocation();
-  const path = location?.pathname || "/";
 
   const onSubmit = async (data: FieldValues) => {
     const toastId = toast.loading("registered in....");
@@ -32,7 +30,7 @@ const Register = () => {
           })
         );
         toast.success("Registered success", { id: toastId });
-        navigate(path, { replace: true });
+        navigate("/", { replace: true });
       } else {
         toast.error(res.message || "something went wrong", { id: toastId });
       }
