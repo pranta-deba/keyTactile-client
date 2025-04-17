@@ -6,6 +6,7 @@ import Register from "@/pages/Auth/Register";
 import Contact from "@/pages/Contact";
 import AddBrand from "@/pages/Dashboard/AddBrand";
 import AddProduct from "@/pages/Dashboard/AddProduct";
+import BrandList from "@/pages/Dashboard/BrandList";
 import DashboardHome from "@/pages/Dashboard/DashboardHome";
 import OrderList from "@/pages/Dashboard/OrderList";
 import ProductList from "@/pages/Dashboard/ProductList";
@@ -44,6 +45,7 @@ export const router = createBrowserRouter([
       { path: "", element: <DashboardHome /> },
       { path: "order-list", element: <OrderList /> },
       { path: "product-list", element: <ProductList /> },
+      { path: "brand-list", element: <BrandList /> },
       { path: "add-product", element: <AddProduct /> },
       { path: "add-brand", element: <AddBrand /> },
     ],
