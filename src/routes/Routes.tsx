@@ -1,7 +1,7 @@
+import DashboardLayout from "@/components/layouts/DashboardLayout";
 import Root from "@/components/layouts/Root";
 import Login from "@/pages/Auth/Login";
 import Register from "@/pages/Auth/Register";
-import Dashboard from "@/pages/Dashboard";
 import Error from "@/pages/Error";
 import Home from "@/pages/Home";
 import ProductDetails from "@/pages/ProductDetails";
@@ -31,6 +31,9 @@ export const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    children: [{ path: "", element: <Dashboard /> }],
+    errorElement: <Error />,
+    children: [
+      {path: "", element: <DashboardLayout />},
+    ],
   },
 ]);
