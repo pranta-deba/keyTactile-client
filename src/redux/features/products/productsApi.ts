@@ -1,5 +1,5 @@
 import { baseApi } from "@/redux/api/baseApi";
-import { ProductQueryParams } from "@/types/products.types";
+import { ProductQueryParams } from "@/types";
 
 const productsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
