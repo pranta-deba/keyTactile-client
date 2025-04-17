@@ -13,6 +13,7 @@ import {
 import { Slider } from "@/components/ui/slider";
 import { useGetAllProductsQuery } from "@/redux/features/products/productsApi";
 import { TProduct } from "@/types/products.types";
+import { Loader } from "lucide-react";
 import { useState } from "react";
 
 const Products = () => {
@@ -99,7 +100,9 @@ const Products = () => {
 
       {/* Products */}
       {isLoading ? (
-        <p className="text-center">Loading...</p>
+        <div className="min-h-[calc(100vh-450px)] flex justify-center items-center">
+          <Loader className="animate-spin" />
+        </div>
       ) : (
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
