@@ -1,7 +1,13 @@
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 import Root from "@/components/layouts/Root";
+import About from "@/pages/About";
 import Login from "@/pages/Auth/Login";
 import Register from "@/pages/Auth/Register";
+import Contact from "@/pages/Contact";
+import AddProduct from "@/pages/Dashboard/AddProduct";
+import DashboardHome from "@/pages/Dashboard/DashboardHome";
+import OrderList from "@/pages/Dashboard/OrderList";
+import ProductList from "@/pages/Dashboard/ProductList";
 import Error from "@/pages/Error";
 import Home from "@/pages/Home";
 import ProductDetails from "@/pages/ProductDetails";
@@ -17,8 +23,8 @@ export const router = createBrowserRouter([
       { path: "", element: <Home /> },
       { path: "products", element: <Products /> },
       { path: "products/:id", element: <ProductDetails /> },
-      { path: "about", element: "about" },
-      { path: "contact", element: "contact" },
+      { path: "about", element: <About /> },
+      { path: "contact", element: <Contact /> },
     ],
   },
   {
@@ -34,10 +40,10 @@ export const router = createBrowserRouter([
     errorElement: <Error />,
     element: <DashboardLayout />,
     children: [
-      { path: "", element: "dashboard" },
-      { path: "order-list", element: "order-list" },
-      { path: "product-list", element: "product-list" },
-      { path: "add-product", element: "add-product" },
+      { path: "", element: <DashboardHome /> },
+      { path: "order-list", element: <OrderList /> },
+      { path: "product-list", element: <ProductList /> },
+      { path: "add-product", element: <AddProduct /> },
     ],
   },
 ]);
