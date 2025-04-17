@@ -2,26 +2,40 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { useCreateProductMutation } from "@/redux/features/products/productsApi";
 import { TProduct } from "@/types";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 const AddProduct = () => {
+  const [createProduct] = useCreateProductMutation();
   const {
     register,
     handleSubmit,
     formState: { errors },
-    // reset,
+    reset,
   } = useForm<TProduct>();
 
-  const onSubmit: SubmitHandler<TProduct> = (data) => {
+  const onSubmit: SubmitHandler<TProduct> = async (data) => {
+    const toastId = toast.loading("Created in....");
     const formattedData = {
       ...data,
       images: data.images.filter(Boolean),
     };
-    console.log("Submitted Product:", formattedData);
-    toast.success("Product added successfully!");
-    // reset();
+
+    try {
+      const res = await createProduct(formattedData).unwrap();
+
+      if (res.success) {
+        toast.success("Product Created.", { id: toastId });
+        reset();
+      }
+    } catch (error) {
+      const err = error as { data?: { message?: string } };
+      toast.error(err?.data?.message || "something went wrong", {
+        id: toastId,
+      });
+    }
   };
   return (
     <div className="min-h-screen p-4 sm:p-6 lg:p-8 shadow-md rounded-xl">
