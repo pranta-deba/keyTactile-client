@@ -11,13 +11,14 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "../ui/sidebar";
+import { Outlet } from "react-router-dom";
 
 const DashboardLayout = () => {
   return (
-    <SidebarProvider>
-       <SidebarTrigger />
+    <div className="flex">
       <div>
-        <div>
+        <SidebarProvider>
+          <SidebarTrigger />
           <Sidebar>
             <SidebarContent>
               <SidebarGroup>
@@ -39,9 +40,12 @@ const DashboardLayout = () => {
               </SidebarGroup>
             </SidebarContent>
           </Sidebar>
-        </div>
+        </SidebarProvider>
       </div>
-    </SidebarProvider>
+      <div>
+        <Outlet />
+      </div>
+    </div>
   );
 };
 
