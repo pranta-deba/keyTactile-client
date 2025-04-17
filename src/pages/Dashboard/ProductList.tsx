@@ -1,3 +1,14 @@
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -8,15 +19,20 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useGetAllProductsQuery } from "@/redux/features/products/productsApi";
+import {
+  useDeleteProductMutation,
+  useGetAllProductsQuery,
+} from "@/redux/features/products/productsApi";
 import { TProduct } from "@/types/products.types";
 import { Edit, Loader, Trash2 } from "lucide-react";
 import { useState } from "react";
+import { toast } from "sonner";
 
 const ProductList = () => {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const limit = 8;
+  const [deleteProduct] = useDeleteProductMutation();
   const { data, isLoading } = useGetAllProductsQuery({
     search,
     page,
@@ -28,9 +44,21 @@ const ProductList = () => {
   const totalPages = Math.ceil(total / limit);
 
   //* Delete Product
-  const handleDeleteProduct = (id: string) => {
-    console.log(id);
+  const handleDeleteProduct = async (id: string) => {
+    try {
+      const res = await deleteProduct(id).unwrap();
+      if (res.success) {
+        toast.success(res?.message || "Product Deleted.");
+      }
+    } catch (err: any) {
+      if (err.status === 404) {
+        toast.error("Product not found");
+      } else {
+        toast.error("Failed to delete:");
+      }
+    }
   };
+
   //* Edit Product
   const handleEditProduct = (id: string) => {
     console.log(id);
@@ -100,14 +128,40 @@ const ProductList = () => {
                       >
                         <Edit className="h-4 w-4" />
                       </Button>
-                      <Button
+                      {/* <Button
                         variant="destructive"
                         size="icon"
                         className="h-8 w-8 cursor-pointer"
                         onClick={() => handleDeleteProduct(product._id)}
                       >
                         <Trash2 className="h-4 w-4" />
-                      </Button>
+                      </Button> */}
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Button size="icon" variant="destructive">
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>
+                              Are you absolutely sure?
+                            </AlertDialogTitle>
+                            <AlertDialogDescription>
+                              This action cannot be undone. This will
+                              permanently delete the product.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogAction
+                              onClick={() => handleDeleteProduct(product._id!)}
+                            >
+                              Delete
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
                     </div>
                   </TableCell>
                 </TableRow>
