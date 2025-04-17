@@ -4,6 +4,7 @@ import About from "@/pages/About";
 import Login from "@/pages/Auth/Login";
 import Register from "@/pages/Auth/Register";
 import Contact from "@/pages/Contact";
+import AddBrand from "@/pages/Dashboard/AddBrand";
 import AddProduct from "@/pages/Dashboard/AddProduct";
 import DashboardHome from "@/pages/Dashboard/DashboardHome";
 import OrderList from "@/pages/Dashboard/OrderList";
@@ -44,6 +45,7 @@ export const router = createBrowserRouter([
       { path: "order-list", element: <OrderList /> },
       { path: "product-list", element: <ProductList /> },
       { path: "add-product", element: <AddProduct /> },
+      { path: "add-brand", element: <AddBrand /> },
     ],
   },
 ]);

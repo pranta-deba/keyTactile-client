@@ -1,4 +1,4 @@
-import { BaggageClaimIcon, CopyPlusIcon, Home,  ShoppingBagIcon } from "lucide-react";
+import { BaggageClaimIcon, CopyPlusIcon, FactoryIcon, Home,  ShoppingBagIcon } from "lucide-react";
 
 export const items = [
   {
@@ -20,5 +20,10 @@ export const items = [
     title: "Add Product",
     url: "/dashboard/add-product",
     icon: CopyPlusIcon,
+  },
+  {
+    title: "Add Brand",
+    url: "/dashboard/add-brand",
+    icon: FactoryIcon,
   },
 ];

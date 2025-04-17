@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
 import { useGetAllProductsQuery } from "@/redux/features/products/productsApi";
-import { TProduct } from "@/types/products.types";
+import { TProduct } from "@/types";
 import { Loader } from "lucide-react";
 import { useState } from "react";
 
