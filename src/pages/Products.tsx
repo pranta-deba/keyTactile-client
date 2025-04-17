@@ -1,6 +1,15 @@
 import AppProductCard from "@/components/productComponents/AppProductCard";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
 import { useGetAllProductsQuery } from "@/redux/features/products/productsApi";
 import { TProduct } from "@/types/products.types";
@@ -48,19 +57,24 @@ const Products = () => {
           }}
           className="max-w-sm"
         />
-
-        <select
+        <Select
           value={sort}
-          onChange={(e) => {
-            setSort(e.target.value);
+          onValueChange={(value) => {
+            setSort(value);
             setPage(1);
           }}
-          className="border border-gray-300 rounded px-4 py-2 text-sm"
         >
-          <option value="">Sort by price</option>
-          <option value="price-asc">Low to High</option>
-          <option value="price-desc">High to Low</option>
-        </select>
+          <SelectTrigger>
+            <SelectValue placeholder="Sort by price" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>Sort by price</SelectLabel>
+              <SelectItem value="price-asc">Low to High</SelectItem>
+              <SelectItem value="price-desc">High to Low</SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
 
         <div className="flex items-center gap-2">
           <span className="text-sm">${priceRange[0]}</span>
