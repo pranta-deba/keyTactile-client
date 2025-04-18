@@ -41,14 +41,25 @@ const cartSlice = createSlice({
     },
 
     decrementQuantity: (state, action: PayloadAction<string>) => {
-        const item = state.cartItems.find(i => i.productId === action.payload);
-        if (item && item.quantity > 1) {
-          item.quantity -= 1;
-          state.totalAmount = state.cartItems.reduce((sum, i) => sum + i.price * i.quantity, 0);
-        }
-      },
+      const item = state.cartItems.find((i) => i.productId === action.payload);
+      if (item && item.quantity > 1) {
+        item.quantity -= 1;
+        state.totalAmount = state.cartItems.reduce(
+          (sum, i) => sum + i.price * i.quantity,
+          0
+        );
+      }
+    },
 
-      
+    removeFromCart: (state, action: PayloadAction<string>) => {
+      state.cartItems = state.cartItems.filter(
+        (i) => i.productId !== action.payload
+      );
+      state.totalAmount = state.cartItems.reduce(
+        (sum, i) => sum + i.price * i.quantity,
+        0
+      );
+    },
   },
 });
 
