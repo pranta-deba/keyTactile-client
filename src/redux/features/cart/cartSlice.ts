@@ -39,6 +39,16 @@ const cartSlice = createSlice({
         );
       }
     },
+
+    decrementQuantity: (state, action: PayloadAction<string>) => {
+        const item = state.cartItems.find(i => i.productId === action.payload);
+        if (item && item.quantity > 1) {
+          item.quantity -= 1;
+          state.totalAmount = state.cartItems.reduce((sum, i) => sum + i.price * i.quantity, 0);
+        }
+      },
+
+      
   },
 });
 
