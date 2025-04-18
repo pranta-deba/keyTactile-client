@@ -124,18 +124,10 @@ const ProductList = () => {
                         variant="outline"
                         size="icon"
                         className="h-8 w-8 cursor-pointer"
-                        onClick={() => handleEditProduct(product._id)}
+                        onClick={() => handleEditProduct(product._id!)}
                       >
                         <Edit className="h-4 w-4" />
                       </Button>
-                      {/* <Button
-                        variant="destructive"
-                        size="icon"
-                        className="h-8 w-8 cursor-pointer"
-                        onClick={() => handleDeleteProduct(product._id)}
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button> */}
                       <AlertDialog>
                         <AlertDialogTrigger asChild>
                           <Button size="icon" variant="destructive">
