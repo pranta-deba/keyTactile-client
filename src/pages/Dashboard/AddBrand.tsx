@@ -22,7 +22,7 @@ const AddBrand = () => {
 
     try {
       const res = await createBrand(data).unwrap();
-      
+
       if (res.success) {
         toast.success("Brand Created.", { id: toastId });
         reset();

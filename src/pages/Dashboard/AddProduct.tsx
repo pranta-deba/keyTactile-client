@@ -1,19 +1,34 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { useGetAllBrandsQuery } from "@/redux/features/brands/brandsApi";
 import { useCreateProductMutation } from "@/redux/features/products/productsApi";
-import { TProduct } from "@/types";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { TBrand, TProduct } from "@/types";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 const AddProduct = () => {
+  const { data } = useGetAllBrandsQuery({});
+  const brands = data?.data || [];
+
   const [createProduct] = useCreateProductMutation();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
+    control,
   } = useForm<TProduct>();
 
   const onSubmit: SubmitHandler<TProduct> = async (data) => {
@@ -37,6 +52,7 @@ const AddProduct = () => {
       });
     }
   };
+
   return (
     <div className="min-h-screen p-4 sm:p-6 lg:p-8 shadow-md rounded-xl">
       <h2 className="text-2xl font-semibold mb-6 text-center">Add New Brand</h2>
@@ -56,14 +72,40 @@ const AddProduct = () => {
         </div>
 
         <div className="flex flex-col gap-2">
-          <Label htmlFor="brand">Brand</Label>
+          {/* <Label htmlFor="brand">Brand</Label>
           <Input
             id="brand"
             {...register("brand", { required: "Brand is required" })}
           />
           {errors.brand && (
             <p className="text-red-500 text-sm">{errors.brand.message}</p>
-          )}
+          )} */}
+          <Label htmlFor="brand">Brand</Label>
+          <Controller
+            name="brand"
+            control={control}
+            rules={{ required: "Brand is required" }}
+            render={({ field }) => (
+              <Select
+                value={field.value}
+                onValueChange={(value) => field.onChange(value)}
+              >
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select a brand" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Brand</SelectLabel>
+                    {brands.map((brand: TBrand) => (
+                      <SelectItem key={brand._id} value={brand?.brand}>
+                        {brand?.brand}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            )}
+          />
         </div>
 
         <div className="flex flex-col gap-2">
