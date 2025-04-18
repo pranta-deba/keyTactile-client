@@ -1,4 +1,5 @@
 import AppHero from "@/components/homeComponents/AppHero";
+import Compare from "@/components/homeComponents/Compare";
 import FeaturedBrands from "@/components/homeComponents/FeaturedBrands";
 import FeaturedProducts from "@/components/homeComponents/FeaturedProducts";
 import Reviews from "@/components/homeComponents/Reviews";
@@ -11,6 +12,7 @@ const Home = () => {
       <Services />
       <FeaturedProducts />
       <FeaturedBrands/>
+      <Compare/>
       <Reviews/>
     </div>
   );
