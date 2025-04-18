@@ -72,14 +72,6 @@ const AddProduct = () => {
         </div>
 
         <div className="flex flex-col gap-2">
-          {/* <Label htmlFor="brand">Brand</Label>
-          <Input
-            id="brand"
-            {...register("brand", { required: "Brand is required" })}
-          />
-          {errors.brand && (
-            <p className="text-red-500 text-sm">{errors.brand.message}</p>
-          )} */}
           <Label htmlFor="brand">Brand</Label>
           <Controller
             name="brand"

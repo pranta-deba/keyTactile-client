@@ -4,6 +4,15 @@ export type TBrand = {
   country: string;
   founded: number;
   description: string;
+  image?: string;
+};
+
+export type TUpdatedBrand = {
+  brand?: string;
+  country?: string;
+  founded?: number;
+  description?: string;
+  image?: string;
 };
 
 export type TBrandApiResponse = {

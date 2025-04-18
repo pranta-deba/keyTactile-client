@@ -19,16 +19,21 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useGetAllBrandsQuery } from "@/redux/features/brands/brandsApi";
+import {
+  useDeleteBrandMutation,
+  useGetAllBrandsQuery,
+} from "@/redux/features/brands/brandsApi";
 import { TBrand } from "@/types";
 import { Edit, Loader, Trash2 } from "lucide-react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { toast } from "sonner";
 
 const BrandList = () => {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const limit = 8;
-
+  const [deleteBrand] = useDeleteBrandMutation();
   const { data, isLoading } = useGetAllBrandsQuery({
     search,
     page,
@@ -40,14 +45,24 @@ const BrandList = () => {
   const totalPages = Math.ceil(total / limit);
 
   //* Delete Brand
-  const handleDeleteBrand = async (id: string) => {};
-
-  //* Edit Brand
-  const handleEditBrand = (id: string) => {};
+  const handleDeleteBrand = async (id: string) => {
+    try {
+      const res = await deleteBrand(id).unwrap();
+      if (res.success) {
+        toast.success(res?.message || "Brand Deleted.");
+      }
+    } catch (err: any) {
+      if (err.status === 404) {
+        toast.error("Brand not found");
+      } else {
+        toast.error("Failed to delete:");
+      }
+    }
+  };
 
   return (
     <div className="p-4 space-y-6 w-full overflow-hidden">
-      <h2 className="text-2xl font-semibold">All Products</h2>
+      <h2 className="text-2xl font-semibold">All Brands</h2>
 
       <div className="flex items-center justify-between flex-wrap gap-4">
         <Input
@@ -99,9 +114,10 @@ const BrandList = () => {
                         variant="outline"
                         size="icon"
                         className="h-8 w-8 cursor-pointer"
-                        onClick={() => handleEditBrand(brand._id!)}
                       >
-                        <Edit className="h-4 w-4" />
+                        <Link to={`/dashboard/update-brand/${brand._id}`}>
+                          <Edit className="h-4 w-4" />
+                        </Link>
                       </Button>
                       <AlertDialog>
                         <AlertDialogTrigger asChild>

@@ -1,5 +1,5 @@
 import { baseApi } from "@/redux/api/baseApi";
-import { TBrandApiResponse, TBrandQueryParams } from "@/types";
+import { TBrand, TBrandApiResponse, TBrandQueryParams } from "@/types";
 
 const brandsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -11,6 +11,7 @@ const brandsApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["brand"],
     }),
+
     getAllBrands: builder.query<TBrandApiResponse, TBrandQueryParams | void>({
       query: (params) => {
         const urlParams = new URLSearchParams();
@@ -26,7 +27,38 @@ const brandsApi = baseApi.injectEndpoints({
       },
       providesTags: ["brand"],
     }),
+
+    getSingleBrand: builder.query({
+      query: (id: string) => ({
+        url: `/brands/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["brand"],
+    }),
+
+    deleteBrand: builder.mutation({
+      query: (id: string) => ({
+        url: `/brands/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["brand"],
+    }),
+
+    updateBrand: builder.mutation({
+      query: ({ id, data }: { id: string; data: TBrand }) => ({
+        url: `/brands/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["brand"],
+    }),
   }),
 });
 
-export const { useCreateBrandMutation, useGetAllBrandsQuery } = brandsApi;
+export const {
+  useCreateBrandMutation,
+  useGetAllBrandsQuery,
+  useDeleteBrandMutation,
+  useUpdateBrandMutation,
+  useGetSingleBrandQuery,
+} = brandsApi;
