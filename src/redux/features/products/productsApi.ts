@@ -1,5 +1,5 @@
 import { baseApi } from "@/redux/api/baseApi";
-import { ProductQueryParams } from "@/types";
+import { ProductQueryParams, TUpdateProduct } from "@/types";
 
 const productsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -41,6 +41,15 @@ const productsApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["product"],
     }),
+
+    updateProduct: builder.mutation({
+      query: ({ id, data }: { id: string; data: Partial<TUpdateProduct> }) => ({
+        url: `/products/${id}`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["product"],
+    }),
   }),
 });
 
@@ -49,4 +58,5 @@ export const {
   useGetAllProductsQuery,
   useGetSingleProductQuery,
   useDeleteProductMutation,
+  useUpdateProductMutation,
 } = productsApi;

@@ -11,6 +11,7 @@ import DashboardHome from "@/pages/Dashboard/DashboardHome";
 import OrderList from "@/pages/Dashboard/OrderList";
 import ProductList from "@/pages/Dashboard/ProductList";
 import UpdateBrand from "@/pages/Dashboard/UpdateBrand";
+import UpdateProduct from "@/pages/Dashboard/UpdateProduct";
 import Error from "@/pages/Error";
 import Home from "@/pages/Home";
 import ProductDetails from "@/pages/ProductDetails";
@@ -50,6 +51,7 @@ export const router = createBrowserRouter([
       { path: "add-product", element: <AddProduct /> },
       { path: "add-brand", element: <AddBrand /> },
       { path: "update-brand/:id", element: <UpdateBrand /> },
+      { path: "update-product/:id", element: <UpdateProduct /> },
     ],
   },
 ]);

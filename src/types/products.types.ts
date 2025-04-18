@@ -9,6 +9,16 @@ export type TProduct = {
   images: string[];
 };
 
+export type TUpdateProduct = {
+  title: string;
+  brand: string;
+  availableQuantity: number;
+  price: number;
+  rating: number;
+  description: string;
+  images: string[];
+};
+
 export type TProductState = {
   products: TProduct[];
 };

@@ -26,6 +26,7 @@ import {
 import { TProduct } from "@/types/products.types";
 import { Edit, Loader, Trash2 } from "lucide-react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { toast } from "sonner";
 
 const ProductList = () => {
@@ -57,11 +58,6 @@ const ProductList = () => {
         toast.error("Failed to delete:");
       }
     }
-  };
-
-  //* Edit Product
-  const handleEditProduct = (id: string) => {
-    console.log(id);
   };
 
   return (
@@ -124,9 +120,10 @@ const ProductList = () => {
                         variant="outline"
                         size="icon"
                         className="h-8 w-8 cursor-pointer"
-                        onClick={() => handleEditProduct(product._id!)}
                       >
-                        <Edit className="h-4 w-4" />
+                        <Link to={`/dashboard/update-product/${product._id}`}>
+                          <Edit className="h-4 w-4" />
+                        </Link>
                       </Button>
                       <AlertDialog>
                         <AlertDialogTrigger asChild>

@@ -145,7 +145,7 @@ const UpdateBrand = () => {
 
           {/* Submit */}
           <Button type="submit" className="cursor-pointer">
-            Add Brand
+            Update Brand
           </Button>
         </form>
       )}
