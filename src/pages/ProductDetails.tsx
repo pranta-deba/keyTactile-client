@@ -1,28 +1,45 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { selectedCarts } from "@/redux/features/cart/cartSlice";
+import { addToCart, selectedCarts } from "@/redux/features/cart/cartSlice";
 import { useGetSingleProductQuery } from "@/redux/features/products/productsApi";
-import { useAppSelector } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { Loader, Star } from "lucide-react";
 import { useParams } from "react-router-dom";
 import { toast } from "sonner";
 
 const ProductDetails = () => {
+  const dispatch = useAppDispatch();
   const { id } = useParams<{ id: string }>();
   const { data, isLoading } = useGetSingleProductQuery(id!);
   const product = data?.data || {};
-  const carts = useAppSelector(selectedCarts)
-  console.log(carts)
+  const carts = useAppSelector(selectedCarts);
+
+  const productInCart = carts.find((item) => item.productId === product._id);
+
 
   const handleAddToCart = async () => {
-    if (
-      product?.availableQuantity === 0 ||
-      product?.availableQuantity - 1 === 0
-    ) {
+    if (!product || product.availableQuantity === 0) {
       toast.error("Product is out of stock!");
       return;
     }
-    console.log(product);
+
+    const existingItem = carts.find((item) => item.productId === product._id);
+    if (existingItem && existingItem.quantity >= product.availableQuantity) {
+      toast.warning("You can't add more than available stock.");
+      return;
+    }
+
+    dispatch(
+      addToCart({
+        productId: product._id,
+        title: product.title,
+        price: product.price,
+        quantity: 1,
+        availableQuantity: product.availableQuantity,
+        image: product.images[0],
+      })
+    );
+    toast.success("Product added to cart!");
   };
 
   if (isLoading)
@@ -84,8 +101,12 @@ const ProductDetails = () => {
             {product?.description}
           </p>
 
-          <Button onClick={handleAddToCart} className="w-full mt-4">
-            Add To Cart
+          <Button
+            disabled={!!productInCart || product.availableQuantity === 0}
+            onClick={handleAddToCart}
+            className="w-full mt-4"
+          >
+            {productInCart ? "Already in Cart" : "Add to Cart"}
           </Button>
         </CardContent>
       </Card>
