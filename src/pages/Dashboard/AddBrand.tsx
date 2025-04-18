@@ -5,10 +5,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { useCreateBrandMutation } from "@/redux/features/brands/brandsApi";
 import { TBrand } from "@/types";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 const AddBrand = () => {
   const [createBrand] = useCreateBrandMutation();
+  const navigation = useNavigate();
 
   const {
     register,
@@ -26,6 +28,7 @@ const AddBrand = () => {
       if (res.success) {
         toast.success("Brand Created.", { id: toastId });
         reset();
+        navigation("/dashboard/brand-list");
       }
     } catch (error) {
       const err = error as { data?: { message?: string } };

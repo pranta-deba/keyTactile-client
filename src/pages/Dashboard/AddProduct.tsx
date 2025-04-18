@@ -15,6 +15,7 @@ import { useGetAllBrandsQuery } from "@/redux/features/brands/brandsApi";
 import { useCreateProductMutation } from "@/redux/features/products/productsApi";
 import { TBrand, TProduct } from "@/types";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 const AddProduct = () => {
@@ -22,6 +23,7 @@ const AddProduct = () => {
   const brands = data?.data || [];
 
   const [createProduct] = useCreateProductMutation();
+  const navigation = useNavigate();
 
   const {
     register,
@@ -44,6 +46,7 @@ const AddProduct = () => {
       if (res.success) {
         toast.success("Product Created.", { id: toastId });
         reset();
+        navigation("/dashboard/product-list");
       }
     } catch (error) {
       const err = error as { data?: { message?: string } };

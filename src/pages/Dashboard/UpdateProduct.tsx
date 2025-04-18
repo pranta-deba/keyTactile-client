@@ -81,8 +81,7 @@ const UpdateProduct = () => {
         toast.success("Product Updated.", { id: toastId });
         navigation("/dashboard/product-list");
       }
-    } catch (err) {
-      console.log(err);
+    } catch {
       toast.error("Failed to update product", { id: toastId });
     }
   };
