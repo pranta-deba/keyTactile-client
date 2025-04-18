@@ -6,19 +6,52 @@ import {
   removeFromCart,
   selectedCarts,
 } from "@/redux/features/cart/cartSlice";
+import { useUpdateProductQuantityMutation } from "@/redux/features/products/productsApi";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { useMemo } from "react";
+import { toast } from "sonner";
 
 const Cart = () => {
   const carts = useAppSelector(selectedCarts);
   const dispatch = useAppDispatch();
+  const [updateProductQuantity] = useUpdateProductQuantityMutation();
 
   const totalPrice = useMemo(() => {
     return carts
       .reduce((total, item) => total + item.price * item.quantity, 0)
       .toFixed(2);
   }, [carts]);
+
+  const handleDecrease = async (id: string) => {
+    try {
+      const res = await updateProductQuantity({
+        productId: id,
+        action: "decrease",
+      }).unwrap();
+      if (res.success) {
+        dispatch(decrementQuantity(id));
+      }
+    } catch {
+      toast.error("something went wrong!");
+    }
+  };
+  const handleIncrease = async (id: string) => {
+    try {
+      const res = await updateProductQuantity({
+        productId: id,
+        action: "increase",
+      }).unwrap();
+      if (res.success) {
+        dispatch(incrementQuantity(id));
+      }
+    } catch {
+      toast.error("something went wrong!");
+    }
+  };
+  const handleRemove = (id: string) => {
+    dispatch(removeFromCart(id));
+  };
 
   if (carts.length === 0) {
     return (
@@ -54,7 +87,7 @@ const Cart = () => {
               <Button
                 size="icon"
                 variant="outline"
-                onClick={() => dispatch(decrementQuantity(item.productId))}
+                onClick={() => handleDecrease(item.productId)}
                 disabled={item.quantity <= 1}
               >
                 <Minus className="w-4 h-4" />
@@ -65,7 +98,7 @@ const Cart = () => {
                 variant="outline"
                 onClick={() => {
                   if (item.quantity < item.availableQuantity) {
-                    dispatch(incrementQuantity(item.productId));
+                    handleIncrease(item.productId);
                   }
                 }}
                 disabled={item.quantity >= item.availableQuantity}
@@ -75,7 +108,7 @@ const Cart = () => {
               <Button
                 variant="destructive"
                 size="icon"
-                onClick={() => dispatch(removeFromCart(item.productId))}
+                onClick={() => handleRemove(item.productId)}
               >
                 <Trash2 className="w-4 h-4" />
               </Button>
