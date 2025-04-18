@@ -3,6 +3,7 @@ import Root from "@/components/layouts/Root";
 import About from "@/pages/About";
 import Login from "@/pages/Auth/Login";
 import Register from "@/pages/Auth/Register";
+import Cart from "@/pages/Cart";
 import Contact from "@/pages/Contact";
 import AddBrand from "@/pages/Dashboard/AddBrand";
 import AddProduct from "@/pages/Dashboard/AddProduct";
@@ -29,6 +30,7 @@ export const router = createBrowserRouter([
       { path: "products/:id", element: <ProductDetails /> },
       { path: "about", element: <About /> },
       { path: "contact", element: <Contact /> },
+      { path: "cart", element: <Cart /> },
     ],
   },
   {
