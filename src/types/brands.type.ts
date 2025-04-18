@@ -8,11 +8,11 @@ export type TBrand = {
 };
 
 export type TUpdatedBrand = {
-  brand?: string;
-  country?: string;
-  founded?: number;
-  description?: string;
-  image?: string;
+  brand: string;
+  country: string;
+  founded: number;
+  description: string;
+  image: string;
 };
 
 export type TBrandApiResponse = {

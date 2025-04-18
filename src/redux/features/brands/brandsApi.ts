@@ -1,5 +1,5 @@
 import { baseApi } from "@/redux/api/baseApi";
-import { TBrand, TBrandApiResponse, TBrandQueryParams } from "@/types";
+import {  TBrandApiResponse, TBrandQueryParams, TUpdatedBrand } from "@/types";
 
 const brandsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -45,7 +45,7 @@ const brandsApi = baseApi.injectEndpoints({
     }),
 
     updateBrand: builder.mutation({
-      query: ({ id, data }: { id: string; data: TBrand }) => ({
+      query: ({ id, data }: { id: string; data: TUpdatedBrand }) => ({
         url: `/brands/${id}`,
         method: "PATCH",
         body: data,
