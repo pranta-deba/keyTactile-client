@@ -21,9 +21,7 @@ const FAQSection = ({
         <div className="flex flex-wrap  gap-8 md:gap-12 items-start justify-center">
           {/* Left Column - Heading and CTA */}
           <div className="flex-1 space-y-6">
-            <h2 className="text-3xl font-bold">
-              {title}
-            </h2>
+            <h2 className="text-3xl font-bold">{title}</h2>
             <p className="text-lg text-muted-foreground max-w-md">{subtitle}</p>
             <div className="pt-4">
               <Link to={buttonLink}>
