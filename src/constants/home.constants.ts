@@ -38,29 +38,6 @@ export const reviews = [
   // Add more reviews here...
 ];
 
-export const brands = [
-  {
-    _id: "1",
-    name: "Ducky",
-    logo: "https://images.unsplash.com/photo-1625723044792-44de16ccb4e9?auto=format&fit=crop&q=80&w=200",
-  },
-  {
-    _id: "2",
-    name: "Ducky",
-    logo: "https://images.unsplash.com/photo-1625723044792-44de16ccb4e9?auto=format&fit=crop&q=80&w=200",
-  },
-  {
-    _id: "3",
-    name: "Ducky",
-    logo: "https://images.unsplash.com/photo-1625723044792-44de16ccb4e9?auto=format&fit=crop&q=80&w=200",
-  },
-  {
-    _id: "4",
-    name: "Ducky",
-    logo: "https://images.unsplash.com/photo-1625723044792-44de16ccb4e9?auto=format&fit=crop&q=80&w=200",
-  },
-  // Add more brands here...
-];
 
 export const whyChooses = [
   {

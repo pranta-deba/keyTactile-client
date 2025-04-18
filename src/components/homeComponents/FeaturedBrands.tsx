@@ -1,23 +1,27 @@
-import { brands } from "@/constants/home.constants";
+import { useGetAllBrandsQuery } from "@/redux/features/brands/brandsApi";
+import Marquee from "react-fast-marquee";
 
 const FeaturedBrands = () => {
+  const { data } = useGetAllBrandsQuery({});
+  const allBrands = data?.data || [];
   return (
     <section className="container mx-auto px-4">
       <h2 className="text-3xl font-bold mb-8 text-center md:text-start">
         Featured Brands
       </h2>
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
-        {brands.map((brand, index) => (
-          <div key={index} className="flex flex-col items-center gap-2">
+      <Marquee
+      pauseOnHover={true}
+      >
+        {allBrands?.slice(0,10).map((brand) => (
+          <figure key={brand._id} className="mx-10">
             <img
-              src={brand.logo}
-              alt={brand.name}
-              className="w-24 h-24 object-contain"
+              src={brand.image}
+              alt={brand.brand}
+              className="w-24 h-24 mx-auto"
             />
-            <p className="font-medium">{brand.name}</p>
-          </div>
+          </figure>
         ))}
-      </div>
+      </Marquee>
     </section>
   );
 };
