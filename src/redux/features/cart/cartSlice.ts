@@ -70,8 +70,8 @@ export const {
   removeFromCart,
 } = cartSlice.actions;
 
-export default cartSlice.reducer;
-
 export const selectedCarts = (state: RootState) => state.carts.cartItems;
 export const selectedTotalAmount = (state: RootState) =>
   state.carts.totalAmount;
+
+export default cartSlice.reducer;
