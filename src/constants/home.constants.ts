@@ -59,22 +59,29 @@ export const whyChooses = [
           components&apos; aesthetic.`,
   },
 ];
+
+
 export const faqItems = [
   {
-    question: "Do you ship overseas?",
-    answer: "Yes, we ship all over the world. Shipping costs will apply, and will be added at checkout. We run discounts and promotions all year, so stay tuned for exclusive deals.",
+    question: "What types of keyboards do you offer?",
+    answer: "We offer a wide range of mechanical, membrane, wireless, and gaming keyboards from top brands, with customizable options to suit your preferences.",
     defaultOpen: true
   },
   {
-    question: "How long will it take to get my orders?",
-    answer: "Domestic orders typically arrive within 3-5 business days. International shipping can take 7-14 business days depending on your location and customs processing."
+    question: "Are your mechanical keyboards hot-swappable?",
+    answer: "Yes, many of our mechanical keyboards feature hot-swappable switches, allowing you to easily change the switches without soldering."
   },
   {
-    question: "Can I return my product?",
-    answer: "Yes, we offer a 30-day return policy for most items. Products must be in their original condition with tags attached. Please contact our customer service team to initiate a return."
+    question: "Do you provide warranty for keyboards?",
+    answer: "Absolutely! All our keyboards come with a standard 1-year warranty covering any manufacturing defects."
   },
   {
-    question: "Do you offer gift wrapping?",
-    answer: "Yes, we offer gift wrapping services for a small additional fee. You can select this option during checkout."
+    question: "Can I customize the RGB lighting on the keyboards?",
+    answer: "Yes, most of our RGB keyboards come with software that allows full customization of lighting effects and key mappings."
+  },
+  {
+    question: "How long does shipping usually take?",
+    answer: "Shipping typically takes 3-5 business days for domestic orders and 7-14 business days for international orders."
   }
 ];
+
