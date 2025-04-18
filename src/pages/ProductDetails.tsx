@@ -1,7 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { addToCart, selectedCarts } from "@/redux/features/cart/cartSlice";
-import { useGetSingleProductQuery } from "@/redux/features/products/productsApi";
+import {
+  useGetSingleProductQuery,
+  useUpdateProductQuantityMutation,
+} from "@/redux/features/products/productsApi";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { Loader, Star } from "lucide-react";
 import { useParams } from "react-router-dom";
@@ -13,9 +16,9 @@ const ProductDetails = () => {
   const { data, isLoading } = useGetSingleProductQuery(id!);
   const product = data?.data || {};
   const carts = useAppSelector(selectedCarts);
+  const [updateProductQuantity] = useUpdateProductQuantityMutation();
 
   const productInCart = carts.find((item) => item.productId === product._id);
-
 
   const handleAddToCart = async () => {
     if (!product || product.availableQuantity === 0) {
@@ -29,17 +32,24 @@ const ProductDetails = () => {
       return;
     }
 
-    dispatch(
-      addToCart({
-        productId: product._id,
-        title: product.title,
-        price: product.price,
-        quantity: 1,
-        availableQuantity: product.availableQuantity,
-        image: product.images[0],
-      })
-    );
-    toast.success("Product added to cart!");
+    const res = await updateProductQuantity({
+      productId: product._id,
+      action: "decrease",
+    }).unwrap();
+
+    if (res.success) {
+      dispatch(
+        addToCart({
+          productId: product._id,
+          title: product.title,
+          price: product.price,
+          quantity: 1,
+          availableQuantity: product.availableQuantity,
+          image: product.images[0],
+        })
+      );
+      toast.success("Product added to cart!");
+    }
   };
 
   if (isLoading)

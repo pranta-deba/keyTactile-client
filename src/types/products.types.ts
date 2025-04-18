@@ -29,3 +29,8 @@ export interface ProductQueryParams {
   search?: string;
   sort?: string;
 }
+
+export type TUpdateQuantity = {
+  productId: string;
+  action: "increase" | "decrease";
+};

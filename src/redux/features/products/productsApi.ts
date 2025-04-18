@@ -1,5 +1,5 @@
 import { baseApi } from "@/redux/api/baseApi";
-import { ProductQueryParams, TUpdateProduct } from "@/types";
+import { ProductQueryParams, TUpdateProduct, TUpdateQuantity } from "@/types";
 
 const productsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -50,6 +50,15 @@ const productsApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["product"],
     }),
+
+    updateProductQuantity: builder.mutation({
+      query: ({ productId, action }: TUpdateQuantity) => ({
+        url: `/products/${productId}/quantity`,
+        method: "PATCH",
+        body: { action },
+      }),
+      invalidatesTags: ["product"],
+    }),
   }),
 });
 
@@ -59,4 +68,5 @@ export const {
   useGetSingleProductQuery,
   useDeleteProductMutation,
   useUpdateProductMutation,
+  useUpdateProductQuantityMutation,
 } = productsApi;
