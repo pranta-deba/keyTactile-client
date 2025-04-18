@@ -59,3 +59,22 @@ export const whyChooses = [
           components&apos; aesthetic.`,
   },
 ];
+export const faqItems = [
+  {
+    question: "Do you ship overseas?",
+    answer: "Yes, we ship all over the world. Shipping costs will apply, and will be added at checkout. We run discounts and promotions all year, so stay tuned for exclusive deals.",
+    defaultOpen: true
+  },
+  {
+    question: "How long will it take to get my orders?",
+    answer: "Domestic orders typically arrive within 3-5 business days. International shipping can take 7-14 business days depending on your location and customs processing."
+  },
+  {
+    question: "Can I return my product?",
+    answer: "Yes, we offer a 30-day return policy for most items. Products must be in their original condition with tags attached. Please contact our customer service team to initiate a return."
+  },
+  {
+    question: "Do you offer gift wrapping?",
+    answer: "Yes, we offer gift wrapping services for a small additional fee. You can select this option during checkout."
+  }
+];
