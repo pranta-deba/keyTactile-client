@@ -6,6 +6,7 @@ import {
 
 import img1 from "../../assets/compare1.jpg";
 import img2 from "../../assets/compare2.jpg";
+import { Link } from "react-router-dom";
 
 const Compare = () => {
   return (
@@ -24,7 +25,7 @@ const Compare = () => {
           </p>
           <div className="pt-4">
             <Button size="lg" className="rounded-full">
-              Shop Keyboard Accessories
+              <Link to={"/products"}>Shop Keyboard Accessories</Link>
             </Button>
           </div>
         </div>
