@@ -1,13 +1,29 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { selectedCarts } from "@/redux/features/cart/cartSlice";
 import { useGetSingleProductQuery } from "@/redux/features/products/productsApi";
+import { useAppSelector } from "@/redux/hooks";
 import { Loader, Star } from "lucide-react";
 import { useParams } from "react-router-dom";
+import { toast } from "sonner";
 
 const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
   const { data, isLoading } = useGetSingleProductQuery(id!);
   const product = data?.data || {};
+  const carts = useAppSelector(selectedCarts)
+  console.log(carts)
+
+  const handleAddToCart = async () => {
+    if (
+      product?.availableQuantity === 0 ||
+      product?.availableQuantity - 1 === 0
+    ) {
+      toast.error("Product is out of stock!");
+      return;
+    }
+    console.log(product);
+  };
 
   if (isLoading)
     return (
@@ -68,7 +84,9 @@ const ProductDetails = () => {
             {product?.description}
           </p>
 
-          <Button className="w-full mt-4">Add To Cart</Button>
+          <Button onClick={handleAddToCart} className="w-full mt-4">
+            Add To Cart
+          </Button>
         </CardContent>
       </Card>
     </div>

@@ -8,13 +8,14 @@ import { navItems } from "@/constants/navbar.items";
 import { useAppSelector } from "@/redux/hooks";
 import { selectedCurrentUser } from "@/redux/features/auth/authSlice";
 import AppProfileDropdown from "./AppProfileDropdown";
+import { selectedCarts } from "@/redux/features/cart/cartSlice";
 
 const AppNavbar = () => {
   const user = useAppSelector(selectedCurrentUser);
+  const carts = useAppSelector(selectedCarts);
   const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const cartItemCount = 3; // Fake cart data
 
   useEffect(() => {
     const handleScroll = () => {
@@ -64,9 +65,9 @@ const AppNavbar = () => {
                 className="relative cursor-pointer size-8"
               >
                 <ShoppingCart className="h-5 w-5" />
-                {cartItemCount > 0 && (
+                {carts?.length > 0 && (
                   <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground rounded-full w-5 h-5 flex items-center justify-center text-xs">
-                    {cartItemCount}
+                    {carts?.length}
                   </span>
                 )}
               </Button>
@@ -79,7 +80,7 @@ const AppNavbar = () => {
               </Button>
             )}
             {/* Profile avatar */}
-            {user && <AppProfileDropdown user={user}/>}
+            {user && <AppProfileDropdown user={user} />}
 
             {/* Mobile Menu Button */}
             <Button
