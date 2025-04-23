@@ -106,6 +106,16 @@ const Cart = () => {
       price,
       quantity,
     }));
+
+    const orderData = {
+      phone,
+      address,
+      cartItems,
+      totalAmount: grandTotal,
+    };
+
+    console.log("Order Data:", orderData);
+    toast.success("Order placed successfully!", { id: toastId });
   };
 
   if (carts.length === 0) {
