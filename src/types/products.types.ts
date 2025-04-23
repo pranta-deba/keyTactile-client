@@ -32,5 +32,6 @@ export interface ProductQueryParams {
 
 export type TUpdateQuantity = {
   productId: string;
-  action: "increase" | "decrease";
+  action: "increase" | "decrease" | "increase-by-value";
+  quantity?: number;
 };

@@ -8,6 +8,7 @@ import {
 } from "@/redux/features/cart/cartSlice";
 import { useUpdateProductQuantityMutation } from "@/redux/features/products/productsApi";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { CartItem } from "@/types";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { useMemo } from "react";
 import { toast } from "sonner";
@@ -27,7 +28,7 @@ const Cart = () => {
     try {
       const res = await updateProductQuantity({
         productId: id,
-        action: "decrease",
+        action: "increase",
       }).unwrap();
       if (res.success) {
         dispatch(decrementQuantity(id));
@@ -36,11 +37,12 @@ const Cart = () => {
       toast.error("something went wrong!");
     }
   };
+
   const handleIncrease = async (id: string) => {
     try {
       const res = await updateProductQuantity({
         productId: id,
-        action: "increase",
+        action: "decrease",
       }).unwrap();
       if (res.success) {
         dispatch(incrementQuantity(id));
@@ -49,8 +51,20 @@ const Cart = () => {
       toast.error("something went wrong!");
     }
   };
-  const handleRemove = (id: string) => {
-    dispatch(removeFromCart(id));
+
+  const handleRemove = async (item: CartItem) => {
+    try {
+      const res = await updateProductQuantity({
+        productId: item.productId,
+        action: "increase-by-value",
+        quantity: item?.quantity,
+      }).unwrap();
+      if (res.success) {
+        dispatch(removeFromCart(item.productId));
+      }
+    } catch {
+      toast.error("something went wrong!");
+    }
   };
 
   if (carts.length === 0) {
@@ -108,7 +122,7 @@ const Cart = () => {
               <Button
                 variant="destructive"
                 size="icon"
-                onClick={() => handleRemove(item.productId)}
+                onClick={() => handleRemove(item)}
               >
                 <Trash2 className="w-4 h-4" />
               </Button>

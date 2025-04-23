@@ -52,11 +52,14 @@ const productsApi = baseApi.injectEndpoints({
     }),
 
     updateProductQuantity: builder.mutation({
-      query: ({ productId, action }: TUpdateQuantity) => ({
-        url: `/products/${productId}/quantity`,
-        method: "PATCH",
-        body: { action },
-      }),
+      query: ({ productId, action, quantity }: TUpdateQuantity) => {
+        const queryString = quantity != null ? `?quantity=${quantity}` : "";
+        return {
+          url: `/products/${productId}/quantity${queryString}`,
+          method: "PATCH",
+          body: { action },
+        };
+      },
       invalidatesTags: ["product"],
     }),
   }),
