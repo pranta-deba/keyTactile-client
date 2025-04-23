@@ -10,13 +10,14 @@ import { useUpdateProductQuantityMutation } from "@/redux/features/products/prod
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { CartItem } from "@/types";
 import { Minus, Plus, Trash2 } from "lucide-react";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { toast } from "sonner";
 
 const Cart = () => {
   const carts = useAppSelector(selectedCarts);
   const dispatch = useAppDispatch();
   const [updateProductQuantity] = useUpdateProductQuantityMutation();
+  const [loading, setLoading] = useState(false);
 
   const totalPrice = useMemo(() => {
     return carts
@@ -25,6 +26,7 @@ const Cart = () => {
   }, [carts]);
 
   const handleDecrease = async (id: string) => {
+    setLoading(true);
     try {
       const res = await updateProductQuantity({
         productId: id,
@@ -32,13 +34,17 @@ const Cart = () => {
       }).unwrap();
       if (res.success) {
         dispatch(decrementQuantity(id));
+        setLoading(false);
       }
+      setLoading(false);
     } catch {
       toast.error("something went wrong!");
+      setLoading(false);
     }
   };
 
   const handleIncrease = async (id: string) => {
+    setLoading(true);
     try {
       const res = await updateProductQuantity({
         productId: id,
@@ -46,13 +52,16 @@ const Cart = () => {
       }).unwrap();
       if (res.success) {
         dispatch(incrementQuantity(id));
+        setLoading(false);
       }
     } catch {
       toast.error("something went wrong!");
+      setLoading(false);
     }
   };
 
   const handleRemove = async (item: CartItem) => {
+    setLoading(true);
     try {
       const res = await updateProductQuantity({
         productId: item.productId,
@@ -61,9 +70,11 @@ const Cart = () => {
       }).unwrap();
       if (res.success) {
         dispatch(removeFromCart(item.productId));
+        setLoading(false);
       }
     } catch {
       toast.error("something went wrong!");
+      setLoading(false);
     }
   };
 
@@ -102,7 +113,7 @@ const Cart = () => {
                 size="icon"
                 variant="outline"
                 onClick={() => handleDecrease(item.productId)}
-                disabled={item.quantity <= 1}
+                disabled={item.quantity <= 1 || loading}
               >
                 <Minus className="w-4 h-4" />
               </Button>
@@ -115,11 +126,12 @@ const Cart = () => {
                     handleIncrease(item.productId);
                   }
                 }}
-                disabled={item.quantity >= item.availableQuantity}
+                disabled={item.quantity >= item.availableQuantity || loading}
               >
                 <Plus className="w-4 h-4" />
               </Button>
               <Button
+                disabled={loading}
                 variant="destructive"
                 size="icon"
                 onClick={() => handleRemove(item)}
