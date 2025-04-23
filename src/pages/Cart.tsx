@@ -27,6 +27,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { CartItem } from "@/types";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 const Cart = () => {
@@ -41,6 +42,7 @@ const Cart = () => {
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   console.log(carts);
 
@@ -127,6 +129,7 @@ const Cart = () => {
         toast.success("Order placed successfully.", { id: toastId });
         setOpen(false);
         setLoading(false);
+        navigate("/booking");
       }
     } catch (error) {
       const err = error as { data?: { message?: string } };
