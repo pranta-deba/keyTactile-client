@@ -3,6 +3,7 @@ import Root from "@/components/layouts/Root";
 import About from "@/pages/About";
 import Login from "@/pages/Auth/Login";
 import Register from "@/pages/Auth/Register";
+import Booking from "@/pages/Booking";
 import Cart from "@/pages/Cart";
 import Contact from "@/pages/Contact";
 import AddBrand from "@/pages/Dashboard/AddBrand";
@@ -31,6 +32,7 @@ export const router = createBrowserRouter([
       { path: "about", element: <About /> },
       { path: "contact", element: <Contact /> },
       { path: "cart", element: <Cart /> },
+      { path: "booking", element: <Booking /> },
     ],
   },
   {
