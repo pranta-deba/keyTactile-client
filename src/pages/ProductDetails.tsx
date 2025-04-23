@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { selectedCurrentUser } from "@/redux/features/auth/authSlice";
 import { addToCart, selectedCarts } from "@/redux/features/cart/cartSlice";
 import {
   useGetSingleProductQuery,
@@ -11,6 +12,7 @@ import { useParams } from "react-router-dom";
 import { toast } from "sonner";
 
 const ProductDetails = () => {
+  const user = useAppSelector(selectedCurrentUser);
   const dispatch = useAppDispatch();
   const { id } = useParams<{ id: string }>();
   const { data, isLoading } = useGetSingleProductQuery(id!);
@@ -111,13 +113,15 @@ const ProductDetails = () => {
             {product?.description}
           </p>
 
-          <Button
-            disabled={!!productInCart || product.availableQuantity === 0}
-            onClick={handleAddToCart}
-            className="w-full mt-4"
-          >
-            {productInCart ? "Already in Cart" : "Add to Cart"}
-          </Button>
+          {user?.role === "user" && (
+            <Button
+              disabled={!!productInCart || product.availableQuantity === 0}
+              onClick={handleAddToCart}
+              className="w-full mt-4"
+            >
+              {productInCart ? "Already in Cart" : "Add to Cart"}
+            </Button>
+          )}
         </CardContent>
       </Card>
     </div>
