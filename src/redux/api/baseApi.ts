@@ -38,6 +38,6 @@ const baseQueryWithExpiredToken: BaseQueryFn<
 export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: baseQueryWithExpiredToken,
-  tagTypes: ["product", "brand", "cart"],
+  tagTypes: ["product", "brand", "cart", "order"],
   endpoints: () => ({}),
 });
