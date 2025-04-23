@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { selectedCurrentUser } from "@/redux/features/auth/authSlice";
 import {
   decrementQuantity,
   incrementQuantity,
@@ -15,9 +16,11 @@ import { toast } from "sonner";
 
 const Cart = () => {
   const carts = useAppSelector(selectedCarts);
+  const user = useAppSelector(selectedCurrentUser);
   const dispatch = useAppDispatch();
   const [updateProductQuantity] = useUpdateProductQuantityMutation();
   const [loading, setLoading] = useState(false);
+  console.log(user);
 
   const totalPrice = useMemo(() => {
     return carts
@@ -76,6 +79,10 @@ const Cart = () => {
       toast.error("something went wrong!");
       setLoading(false);
     }
+  };
+
+  const handleCheckOut = async () => {
+    
   };
 
   if (carts.length === 0) {
@@ -147,7 +154,9 @@ const Cart = () => {
         <h2 className="text-2xl font-semibold">
           Total: <span className="text-primary">${totalPrice}</span>
         </h2>
-        <Button className="mt-4">Proceed to Checkout</Button>
+        <Button onClick={handleCheckOut} className="mt-4">
+          Proceed to Checkout
+        </Button>
       </div>
     </div>
   );
