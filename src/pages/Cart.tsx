@@ -189,7 +189,9 @@ const Cart = () => {
         </h2>
         <Dialog>
           <DialogTrigger asChild>
-            <Button className="mt-4">Proceed to Checkout</Button>
+            <Button disabled={loading} className="mt-4">
+              Proceed to Checkout
+            </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[500px]">
             <AlertDialogHeader>
@@ -237,7 +239,9 @@ const Cart = () => {
             </div>
 
             <AlertDialogFooter>
-              <Button onClick={handleCheckOut}>Confirm Order</Button>
+              <Button disabled={loading} onClick={handleCheckOut}>
+                Confirm Order
+              </Button>
             </AlertDialogFooter>
           </DialogContent>
         </Dialog>
