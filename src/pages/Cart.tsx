@@ -14,12 +14,14 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
+  clearCart,
   decrementQuantity,
   incrementQuantity,
   removeFromCart,
   selectedCarts,
   selectedTotalAmount,
 } from "@/redux/features/cart/cartSlice";
+import { useCreateOrderMutation } from "@/redux/features/order/orderApi";
 import { useUpdateProductQuantityMutation } from "@/redux/features/products/productsApi";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { CartItem } from "@/types";
@@ -32,11 +34,13 @@ const Cart = () => {
   const totalAmount = useAppSelector(selectedTotalAmount);
   const dispatch = useAppDispatch();
   const [updateProductQuantity] = useUpdateProductQuantityMutation();
+  const [createOrder] = useCreateOrderMutation();
   const [loading, setLoading] = useState(false);
   const deliveryCharge: number = 15;
   const grandTotal: number = totalAmount + deliveryCharge;
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
+  const [open, setOpen] = useState(false);
 
   console.log(carts);
 
@@ -94,9 +98,11 @@ const Cart = () => {
   };
 
   const handleCheckOut = async () => {
-    const toastId = toast.loading("login in....");
+    setLoading(true);
+    const toastId = toast.loading("Ordered in....");
     if (!phone || !address) {
       toast.warning("Please provide (address and phone)!", { id: toastId });
+      setLoading(false);
       return;
     }
 
@@ -114,8 +120,21 @@ const Cart = () => {
       totalAmount: grandTotal,
     };
 
-    console.log("Order Data:", orderData);
-    toast.success("Order placed successfully!", { id: toastId });
+    try {
+      const res = await createOrder(orderData).unwrap();
+      if (res.success) {
+        dispatch(clearCart());
+        toast.success("Order placed successfully.", { id: toastId });
+        setOpen(false);
+        setLoading(false);
+      }
+    } catch (error) {
+      const err = error as { data?: { message?: string } };
+      toast.error(err?.data?.message || "something went wrong", {
+        id: toastId,
+      });
+      setLoading(false);
+    }
   };
 
   if (carts.length === 0) {
@@ -187,7 +206,7 @@ const Cart = () => {
         <h2 className="text-2xl font-semibold">
           Total: <span className="text-primary">${totalAmount}</span>
         </h2>
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
             <Button disabled={loading} className="mt-4">
               Proceed to Checkout
