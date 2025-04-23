@@ -1,32 +1,27 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { selectedCurrentUser } from "@/redux/features/auth/authSlice";
 import {
   decrementQuantity,
   incrementQuantity,
   removeFromCart,
   selectedCarts,
+  selectedTotalAmount,
 } from "@/redux/features/cart/cartSlice";
 import { useUpdateProductQuantityMutation } from "@/redux/features/products/productsApi";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { CartItem } from "@/types";
 import { Minus, Plus, Trash2 } from "lucide-react";
-import { useMemo, useState } from "react";
+import {  useState } from "react";
 import { toast } from "sonner";
 
 const Cart = () => {
   const carts = useAppSelector(selectedCarts);
-  const user = useAppSelector(selectedCurrentUser);
+  const totalAmount = useAppSelector(selectedTotalAmount);
   const dispatch = useAppDispatch();
   const [updateProductQuantity] = useUpdateProductQuantityMutation();
   const [loading, setLoading] = useState(false);
-  console.log(user);
 
-  const totalPrice = useMemo(() => {
-    return carts
-      .reduce((total, item) => total + item.price * item.quantity, 0)
-      .toFixed(2);
-  }, [carts]);
+  console.log(carts)
 
   const handleDecrease = async (id: string) => {
     setLoading(true);
@@ -81,9 +76,7 @@ const Cart = () => {
     }
   };
 
-  const handleCheckOut = async () => {
-    
-  };
+  const handleCheckOut = async () => {};
 
   if (carts.length === 0) {
     return (
@@ -152,7 +145,7 @@ const Cart = () => {
 
       <div className="mt-10 text-right">
         <h2 className="text-2xl font-semibold">
-          Total: <span className="text-primary">${totalPrice}</span>
+          Total: <span className="text-primary">${totalAmount}</span>
         </h2>
         <Button onClick={handleCheckOut} className="mt-4">
           Proceed to Checkout
