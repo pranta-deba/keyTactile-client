@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { SidebarMenuSkeleton } from "@/components/ui/sidebar";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -76,12 +75,6 @@ const Booking = () => {
                 >
                   Status: {order?.status}
                 </span>
-
-                {order?.status === "pending" && (
-                  <Button variant="destructive" className="w-full md:w-auto">
-                    Cancel Order
-                  </Button>
-                )}
               </div>
             </Card>
           ))}

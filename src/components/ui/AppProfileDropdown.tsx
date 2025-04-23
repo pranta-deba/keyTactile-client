@@ -28,7 +28,13 @@ const AppProfileDropdown = ({ user }: { user: TUser }) => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild className="size-10">
         <Avatar className="cursor-pointer">
-          <AvatarImage src={user?.image} />
+          <AvatarImage
+            src={
+              user?.image
+                ? user?.image
+                : "https://i.ibb.co.com/Vqk8scQ/images.png"
+            }
+          />
           <AvatarFallback>{user?.userName}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
