@@ -14,6 +14,7 @@ const orderApi = baseApi.injectEndpoints({
         },
         invalidatesTags: ["order"],
       }),
+
       getAllOrder: builder.query({
         query: (params: TOrderQueryParams = {}) => {
           const { page = 1, limit = 10, search = "" } = params;
