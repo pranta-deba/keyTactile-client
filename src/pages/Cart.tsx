@@ -1,5 +1,18 @@
+import {
+  AlertDialogFooter,
+  AlertDialogHeader,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   decrementQuantity,
   incrementQuantity,
@@ -11,7 +24,7 @@ import { useUpdateProductQuantityMutation } from "@/redux/features/products/prod
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { CartItem } from "@/types";
 import { Minus, Plus, Trash2 } from "lucide-react";
-import {  useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 
 const Cart = () => {
@@ -20,8 +33,12 @@ const Cart = () => {
   const dispatch = useAppDispatch();
   const [updateProductQuantity] = useUpdateProductQuantityMutation();
   const [loading, setLoading] = useState(false);
+  const deliveryCharge: number = 15;
+  const grandTotal: number = totalAmount + deliveryCharge;
+  const [address, setAddress] = useState("");
+  const [phone, setPhone] = useState("");
 
-  console.log(carts)
+  console.log(carts);
 
   const handleDecrease = async (id: string) => {
     setLoading(true);
@@ -76,7 +93,20 @@ const Cart = () => {
     }
   };
 
-  const handleCheckOut = async () => {};
+  const handleCheckOut = async () => {
+    const toastId = toast.loading("login in....");
+    if (!phone || !address) {
+      toast.warning("Please provide (address and phone)!", { id: toastId });
+      return;
+    }
+
+    const cartItems = carts.map(({ productId, title, price, quantity }) => ({
+      productId,
+      title,
+      price,
+      quantity,
+    }));
+  };
 
   if (carts.length === 0) {
     return (
@@ -147,9 +177,60 @@ const Cart = () => {
         <h2 className="text-2xl font-semibold">
           Total: <span className="text-primary">${totalAmount}</span>
         </h2>
-        <Button onClick={handleCheckOut} className="mt-4">
-          Proceed to Checkout
-        </Button>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button className="mt-4">Proceed to Checkout</Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[500px]">
+            <AlertDialogHeader>
+              <DialogTitle>Checkout</DialogTitle>
+              <DialogDescription>
+                Please provide your delivery information to complete the order.
+              </DialogDescription>
+            </AlertDialogHeader>
+
+            <div className="grid gap-4 py-4">
+              <div className="text-sm text-muted-foreground bg-secondary px-4 py-2 rounded">
+                Payment Method: <strong>Cash on Delivery</strong>
+              </div>
+
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="address" className="text-right">
+                  Address
+                </Label>
+                <Input
+                  id="address"
+                  onChange={(e) => setAddress(e.target.value)}
+                  placeholder="Enter your full address"
+                  className="col-span-3"
+                />
+              </div>
+
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="phone" className="text-right">
+                  Phone
+                </Label>
+                <Input
+                  onChange={(e) => setPhone(e.target.value)}
+                  id="phone"
+                  placeholder="Enter your phone number"
+                  className="col-span-3"
+                />
+              </div>
+
+              <div className="text-sm text-muted-foreground bg-secondary px-4 py-2 rounded">
+                Delivery Charge: <strong>${deliveryCharge}</strong>
+              </div>
+              <div className="text-sm text-primary font-semibold bg-background px-4 py-2 rounded border">
+                Total Amount (incl. delivery): <strong>${grandTotal}</strong>
+              </div>
+            </div>
+
+            <AlertDialogFooter>
+              <Button onClick={handleCheckOut}>Confirm Order</Button>
+            </AlertDialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
