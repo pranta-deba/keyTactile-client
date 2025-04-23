@@ -12,6 +12,18 @@ export type TOrderData = {
   totalAmount: number;
 };
 
+export type TGetOrder = {
+  _id: string;
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+  cartItems: TCartItem[];
+  totalAmount: number;
+  orderDate: string;
+  status: "pending" | "processing" | "shipped" | "delivered";
+};
+
 export interface TOrderQueryParams {
   page?: number;
   limit?: number;
