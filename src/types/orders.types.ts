@@ -11,3 +11,9 @@ export type TOrderData = {
   cartItems: TCartItem[];
   totalAmount: number;
 };
+
+export interface TOrderQueryParams {
+  page?: number;
+  limit?: number;
+  search?: string;
+}
