@@ -8,24 +8,39 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useGetAllOrderQuery } from "@/redux/features/order/orderApi";
+import {
+  useGetAllOrderQuery,
+  useUpdateOrderStatusMutation,
+} from "@/redux/features/order/orderApi";
 import { TGetOrder } from "@/types/orders.types";
 import { format } from "date-fns";
 import { Loader, SearchX } from "lucide-react";
 import { useState } from "react";
+import { toast } from "sonner";
 
 const OrderList = () => {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
   const limit = 10;
-
+  const [updateOrderStatus] = useUpdateOrderStatusMutation();
   const { data, isLoading } = useGetAllOrderQuery({ page, limit, search });
   const orders = data?.data || [];
   const totalPages = data?.meta?.totalPages || 1;
 
   const handleStatusChange = async (orderId: string, newStatus: string) => {
-    // You can call a mutation here to update the status
-    console.log("Update status for", orderId, "to", newStatus);
+    setLoading(true);
+    try {
+      const res = await updateOrderStatus({ orderId, newStatus }).unwrap();
+      if (res.success) {
+        toast.error(res?.message || "Changed.");
+        setLoading(false);
+      }
+      setLoading(false);
+    } catch {
+      toast.error("something went wrong!");
+      setLoading(false);
+    }
   };
 
   return (
@@ -93,6 +108,7 @@ const OrderList = () => {
                   </TableCell>
                   <TableCell>
                     <select
+                      disabled={loading}
                       value={order.status}
                       onChange={(e) =>
                         handleStatusChange(order._id, e.target.value)
