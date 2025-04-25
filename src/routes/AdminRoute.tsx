@@ -1,10 +1,11 @@
 import { selectedCurrentUser } from "@/redux/features/auth/authSlice";
 import { useAppSelector } from "@/redux/hooks";
+import { TUser } from "@/types";
 import { ReactNode } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 
 const AdminRoute = ({ children }: { children: ReactNode }) => {
-  const user = useAppSelector(selectedCurrentUser) || {};
+  const user = useAppSelector(selectedCurrentUser) as TUser | null;
   const location = useLocation();
 
   if (user && user?.role === "admin") {
