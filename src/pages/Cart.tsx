@@ -44,7 +44,6 @@ const Cart = () => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
-  console.log(carts);
 
   const handleDecrease = async (id: string) => {
     setLoading(true);

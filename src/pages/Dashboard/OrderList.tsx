@@ -23,7 +23,7 @@ const OrderList = () => {
   const orders = data?.data || [];
   const totalPages = data?.meta?.totalPages || 1;
 
-  const handleStatusChange = (orderId: string, newStatus: string) => {
+  const handleStatusChange = async (orderId: string, newStatus: string) => {
     // You can call a mutation here to update the status
     console.log("Update status for", orderId, "to", newStatus);
   };
