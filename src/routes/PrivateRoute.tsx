@@ -6,10 +6,9 @@ import { Navigate, useLocation } from "react-router-dom";
 const PrivateRoute = ({ children }: { children: ReactNode }) => {
   const user = useAppSelector(selectedCurrentUser);
   const location = useLocation();
-  console.log(location);
 
   if (!user) {
-    return <Navigate to={"login"} />;
+    return <Navigate to={"/login"} state={location.pathname} replace={true} />;
   }
 
   return children;

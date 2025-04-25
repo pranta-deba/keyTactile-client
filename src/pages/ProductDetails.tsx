@@ -8,7 +8,7 @@ import {
 } from "@/redux/features/products/productsApi";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { Loader, Star } from "lucide-react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { toast } from "sonner";
 
 const ProductDetails = () => {
@@ -19,6 +19,7 @@ const ProductDetails = () => {
   const product = data?.data || {};
   const carts = useAppSelector(selectedCarts);
   const [updateProductQuantity] = useUpdateProductQuantityMutation();
+  const location = useLocation();
 
   const productInCart = carts.find((item) => item.productId === product._id);
 
@@ -125,7 +126,9 @@ const ProductDetails = () => {
           {!user && (
             <>
               <Button>
-                <Link to={"/login"}>Add To cart</Link>
+                <Link to={"/login"} state={location.pathname} replace={true}>
+                  Add To cart
+                </Link>
               </Button>
             </>
           )}

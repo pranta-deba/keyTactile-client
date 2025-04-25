@@ -6,7 +6,7 @@ import { useLoginUserMutation } from "@/redux/features/auth/authApi";
 import { setUser } from "@/redux/features/auth/authSlice";
 import { useAppDispatch } from "@/redux/hooks";
 import { FieldValues, useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 const Login = () => {
@@ -14,6 +14,8 @@ const Login = () => {
   const dispatch = useAppDispatch();
   const [loginUser] = useLoginUserMutation();
   const navigate = useNavigate();
+  const location = useLocation();
+
 
   const onSubmit = async (data: FieldValues) => {
     const toastId = toast.loading("login in....");
@@ -29,7 +31,7 @@ const Login = () => {
           })
         );
         toast.success("Login success", { id: toastId });
-        navigate("/", { replace: true });
+        navigate(location?.state || "/", { replace: true });
       } else {
         toast.error(res.message || "something went wrong", { id: toastId });
       }

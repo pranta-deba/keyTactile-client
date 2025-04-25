@@ -19,6 +19,8 @@ import Home from "@/pages/Home";
 import ProductDetails from "@/pages/ProductDetails";
 import Products from "@/pages/Products";
 import { createBrowserRouter } from "react-router-dom";
+import PrivateRoute from "./PrivateRoute";
+import AdminRoute from "./AdminRoute";
 
 export const router = createBrowserRouter([
   {
@@ -31,8 +33,22 @@ export const router = createBrowserRouter([
       { path: "products/:id", element: <ProductDetails /> },
       { path: "about", element: <About /> },
       { path: "contact", element: <Contact /> },
-      { path: "cart", element: <Cart /> },
-      { path: "booking", element: <Booking /> },
+      {
+        path: "cart",
+        element: (
+          <PrivateRoute>
+            <Cart />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "booking",
+        element: (
+          <PrivateRoute>
+            <Booking />
+          </PrivateRoute>
+        ),
+      },
     ],
   },
   {
@@ -46,16 +62,76 @@ export const router = createBrowserRouter([
   {
     path: "/dashboard",
     errorElement: <Error />,
-    element: <DashboardLayout />,
+    element: (
+      <AdminRoute>
+        <DashboardLayout />
+      </AdminRoute>
+    ),
     children: [
-      { path: "", element: <DashboardHome /> },
-      { path: "order-list", element: <OrderList /> },
-      { path: "product-list", element: <ProductList /> },
-      { path: "brand-list", element: <BrandList /> },
-      { path: "add-product", element: <AddProduct /> },
-      { path: "add-brand", element: <AddBrand /> },
-      { path: "update-brand/:id", element: <UpdateBrand /> },
-      { path: "update-product/:id", element: <UpdateProduct /> },
+      {
+        path: "",
+        element: (
+          <AdminRoute>
+            <DashboardHome />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "order-list",
+        element: (
+          <AdminRoute>
+            <OrderList />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "product-list",
+        element: (
+          <AdminRoute>
+            <ProductList />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "brand-list",
+        element: (
+          <AdminRoute>
+            <BrandList />{" "}
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "add-product",
+        element: (
+          <AdminRoute>
+            <AddProduct />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "add-brand",
+        element: (
+          <AdminRoute>
+            <AddBrand />{" "}
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "update-brand/:id",
+        element: (
+          <AdminRoute>
+            <UpdateBrand />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "update-product/:id",
+        element: (
+          <AdminRoute>
+            <UpdateProduct />{" "}
+          </AdminRoute>
+        ),
+      },
     ],
   },
 ]);

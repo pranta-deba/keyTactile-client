@@ -54,24 +54,38 @@ const AppNavbar = () => {
                 {label}
               </AppNavLink>
             ))}
+
+            {user?.role === "user" && (
+              <AppNavLink
+                to={"Booking"}
+                active={location.pathname === "/booking"}
+              >
+                Booking
+              </AppNavLink>
+            )}
           </div>
 
           <div className="flex items-center space-x-2 md:space-x-4">
-            <ThemeToggle />
-            <Link to="/cart">
-              <Button
-                variant="outline"
-                size="icon"
-                className="relative cursor-pointer size-8"
-              >
-                <ShoppingCart className="h-5 w-5" />
-                {carts?.length > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground rounded-full w-5 h-5 flex items-center justify-center text-xs">
-                    {carts?.length}
-                  </span>
-                )}
-              </Button>
-            </Link>
+            {user?.role === "user" && (
+              <>
+                {" "}
+                <ThemeToggle />
+                <Link to="/cart">
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="relative cursor-pointer size-8"
+                  >
+                    <ShoppingCart className="h-5 w-5" />
+                    {carts?.length > 0 && (
+                      <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                        {carts?.length}
+                      </span>
+                    )}
+                  </Button>
+                </Link>
+              </>
+            )}
 
             {/* Sing in */}
             {!user && (

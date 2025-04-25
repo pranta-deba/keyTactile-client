@@ -5,5 +5,4 @@ export const navItems: TNavItems[] = [
   { label: "Products", to: "/products" },
   { label: "About", to: "/about" },
   { label: "Contact", to: "/contact" },
-  { label: "Booking", to: "/booking" },
 ];
