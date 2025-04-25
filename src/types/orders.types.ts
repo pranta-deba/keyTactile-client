@@ -21,7 +21,7 @@ export type TGetOrder = {
   cartItems: TCartItem[];
   totalAmount: number;
   orderDate: string;
-  status: "pending" | "processing" | "shipped" | "delivered";
+  status: "pending" | "processing" | "shipped" | "delivered" | "cancelled";
 };
 
 export interface TOrderQueryParams {
