@@ -8,7 +8,7 @@ import {
 } from "@/redux/features/products/productsApi";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { Loader, Star } from "lucide-react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { toast } from "sonner";
 
 const ProductDetails = () => {
@@ -121,6 +121,13 @@ const ProductDetails = () => {
             >
               {productInCart ? "Already in Cart" : "Add to Cart"}
             </Button>
+          )}
+          {!user && (
+            <>
+              <Button>
+                <Link to={"/login"}>Add To cart</Link>
+              </Button>
+            </>
           )}
         </CardContent>
       </Card>
