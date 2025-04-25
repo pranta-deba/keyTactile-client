@@ -47,10 +47,12 @@ const AppProfileDropdown = ({ user }: { user: TUser }) => {
             <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
           </DropdownMenuItem>
 
-          <DropdownMenuItem>
-            <Link to={"/dashboard"}>Dashboard</Link>
-            <DropdownMenuShortcut>⌘D</DropdownMenuShortcut>
-          </DropdownMenuItem>
+          {user?.role === "admin" && (
+            <DropdownMenuItem>
+              <Link to={"/dashboard"}>Dashboard</Link>
+              <DropdownMenuShortcut>⌘D</DropdownMenuShortcut>
+            </DropdownMenuItem>
+          )}
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleLogout}>
