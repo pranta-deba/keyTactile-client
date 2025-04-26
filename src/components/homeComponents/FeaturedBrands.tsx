@@ -6,7 +6,7 @@ const FeaturedBrands = () => {
   const { data, isLoading } = useGetAllBrandsQuery({});
   const allBrands = data?.data || [];
   return (
-    <section className="container mx-auto px-4 py-4 md:py-10">
+    <section className="container mx-auto w-full overflow-hidden px-4 py-4 md:py-10">
       <h2 data-aos="fade-left" className="text-3xl font-bold mb-8 text-center md:text-start">
         Featured Brands
       </h2>

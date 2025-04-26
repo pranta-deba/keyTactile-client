@@ -9,7 +9,7 @@ const FeaturedProducts = () => {
   const { data: products, isLoading } = useGetAllProductsQuery({});
 
   return (
-    <section id="featured" className="container mx-auto px-4">
+    <section id="featured" className="container w-full overflow-hidden mx-auto  px-4 ">
       <h2
         data-aos="fade-left"
         className="text-3xl font-bold mb-8 text-center md:text-start"

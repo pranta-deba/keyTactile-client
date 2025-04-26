@@ -11,8 +11,8 @@ import { Star } from "lucide-react";
 
 const Reviews = () => {
   return (
-    <section className="container mx-auto px-4 overflow-hidden">
-      <h2 className="text-3xl font-bold mb-8 text-center md:text-start">What Our Customers Say</h2>
+    <section className="container mx-auto w-full overflow-hidden px-4">
+      <h2 data-aos="fade-left" className="text-3xl font-bold mb-8 text-center md:text-start">What Our Customers Say</h2>
       <Carousel className="w-full">
         <CarouselContent>
           {reviews.map((review) => (

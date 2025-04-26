@@ -11,7 +11,7 @@ const AppHero = () => {
           className="w-full h-full object-cover brightness-50"
         />
       </div>
-      <div className="container mx-auto px-4 md:px-20 relative z-10 text-white">
+      <div className="container mx-auto px-4 md:px-20 relative z-10 text-white w-full overflow-hidden">
         <h1 data-aos="fade-up" className="text-5xl font-bold mb-4">
           Premium Mechanical Keyboards
         </h1>
