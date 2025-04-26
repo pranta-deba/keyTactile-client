@@ -6,10 +6,7 @@ import Aos from "aos";
 
 const App = () => {
   useEffect(() => {
-    Aos.init({
-      duration: 1000,
-      once: true,
-    });
+    Aos.init();
   }, []);
 
   return (

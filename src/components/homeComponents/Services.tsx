@@ -26,7 +26,7 @@ const Services = () => {
           description: "Guaranteed satisfaction",
         },
       ].map((service, index) => (
-        <Card key={index}>
+        <Card key={index} data-aos="fade-up">
           <CardHeader className="flex flex-col justify-center items-center">
             <service.icon className="w-8 h-8 mb-2 text-primary" />
             <CardTitle>{service.title}</CardTitle>
