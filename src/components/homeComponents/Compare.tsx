@@ -12,7 +12,7 @@ const Compare = () => {
   return (
     <div className="container mx-auto px-4 py-4 md:py-10">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-        <div className="space-y-4">
+        <div data-aos="fade-up" className="space-y-4">
           <p className="text-sm font-medium uppercase tracking-wider text-muted-foreground">
             MAKE IT YOUR OWN
           </p>
@@ -29,7 +29,7 @@ const Compare = () => {
             </Button>
           </div>
         </div>
-        <div className="bg-muted/30 rounded-lg">
+        <div data-aos="fade-up" className="bg-muted/30 rounded-lg">
           <ReactCompareSlider
           position={50}
             itemOne={
