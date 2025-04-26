@@ -12,13 +12,13 @@ const AppHero = () => {
         />
       </div>
       <div className="container mx-auto px-4 md:px-20 relative z-10 text-white">
-        <h1 className="text-5xl font-bold mb-4">
+        <h1 data-aos="fade-up" className="text-5xl font-bold mb-4">
           Premium Mechanical Keyboards
         </h1>
-        <p className="text-xl mb-8">
+        <p data-aos="fade-up" className="text-xl mb-8">
           Discover the perfect blend of style and performance
         </p>
-        <Button size="lg" asChild>
+        <Button data-aos="fade-up" size="lg" asChild>
           <a href="#featured">Shop Now</a>
         </Button>
       </div>
