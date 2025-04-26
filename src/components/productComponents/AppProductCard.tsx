@@ -14,7 +14,7 @@ const AppProductCard = ({
   availableQuantity,
 }: TProduct) => {
   return (
-    <Card>
+    <Card data-aos="fade-up">
       <CardHeader>
         <img
           src={images ? (images?.length > 0 ? images[0] : "") : ""}

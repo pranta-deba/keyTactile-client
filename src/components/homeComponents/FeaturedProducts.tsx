@@ -10,7 +10,10 @@ const FeaturedProducts = () => {
 
   return (
     <section id="featured" className="container mx-auto px-4">
-      <h2 className="text-3xl font-bold mb-8 text-center md:text-start">
+      <h2
+        data-aos="fade-left"
+        className="text-3xl font-bold mb-8 text-center md:text-start"
+      >
         Featured Products
       </h2>
       {isLoading && (
