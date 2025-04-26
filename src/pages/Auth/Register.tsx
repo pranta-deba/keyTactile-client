@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { useRegisterUserMutation } from "@/redux/features/auth/authApi";
 import { setUser } from "@/redux/features/auth/authSlice";
 import { useAppDispatch } from "@/redux/hooks";
+import { uploadImageToImgbb } from "@/utils/uploadImageToImgbb";
 import { FieldValues, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
@@ -16,13 +17,17 @@ const Register = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (data: FieldValues) => {
-    console.log(data);
-
-    return;
     const toastId = toast.loading("registered in....");
+    const file = data?.image[0];
+    if (!file) {
+      toast.error("Profile image required!", { id: toastId });
+      return;
+    }
 
     try {
-      const res = await registerUser(data).unwrap();
+      const imageUrl = await uploadImageToImgbb(file);
+      const userData = { ...data, image: imageUrl };
+      const res = await registerUser(userData).unwrap();
 
       if (res.success) {
         const { _id, email, image, name, userName, phone, role } = res.data;
