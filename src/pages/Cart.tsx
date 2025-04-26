@@ -141,14 +141,14 @@ const Cart = () => {
 
   if (carts.length === 0) {
     return (
-      <div className="min-h-[calc(100vh-450px)] flex items-center justify-center text-2xl text-gray-600">
+      <div className="min-h-[calc(100vh-400px)] flex items-center justify-center text-2xl text-gray-600">
         Your cart is empty 🛒
       </div>
     );
   }
 
   return (
-    <div className="max-w-5xl mx-auto py-10 px-4">
+    <div className="min-h-[calc(100vh-400px)] max-w-5xl mx-auto py-10 px-4">
       <h1 className="text-3xl font-bold mb-6">Your Cart</h1>
 
       <div className="space-y-6">
