@@ -23,7 +23,7 @@ const baseQuery = fetchBaseQuery({
 });
 
 const baseQueryWithExpiredToken: BaseQueryFn<
-  FetchArgs,
+  FetchArgs | string,
   BaseQueryApi,
   DefinitionType
 > = async (args, api, extraOptions): Promise<any> => {
