@@ -14,7 +14,7 @@ const Register = () => {
   const dispatch = useAppDispatch();
   const [registerUser] = useRegisterUserMutation();
   const navigate = useNavigate();
-
+  
   const onSubmit = async (data: FieldValues) => {
     const toastId = toast.loading("registered in....");
 

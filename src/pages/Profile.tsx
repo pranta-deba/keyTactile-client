@@ -7,7 +7,7 @@ import { useAppSelector } from "@/redux/hooks";
 
 const Profile = () => {
   const user = useAppSelector(selectedCurrentUser);
-  console.log(user);
+  
 
   return (
     <div className="min-h-[calc(100vh-400px)] flex justify-center items-center p-4">

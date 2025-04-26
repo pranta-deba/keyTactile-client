@@ -11,7 +11,7 @@ import { RootState } from "../store";
 import { logout } from "../features/auth/authSlice";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://localhost:5000",
+  baseUrl: import.meta.env.VITE_BACKEND_URL,
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;
@@ -38,6 +38,6 @@ const baseQueryWithExpiredToken: BaseQueryFn<
 export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: baseQueryWithExpiredToken,
-  tagTypes: ["product", "brand", "cart", "order","stat"],
+  tagTypes: ["product", "brand", "cart", "order", "stat"],
   endpoints: () => ({}),
 });
