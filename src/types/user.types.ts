@@ -12,3 +12,10 @@ export type UserState = {
   user: null | TUser;
   token: null | string;
 };
+
+export type TUpdateData = {
+  name: string;
+  phone: string;
+  userName: string;
+  image?: string;
+};

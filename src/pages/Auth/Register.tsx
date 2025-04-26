@@ -123,17 +123,10 @@ const Register = () => {
             {/* Profile Image */}
             <div className="space-y-2">
               <Label htmlFor="image">Profile Image</Label>
-              {/* <Input
-                id="image"
-                type="url"
-                {...register("image", { required: true })}
-                placeholder="Enter profile image URL"
-              /> */}
               <Input
                 id="image"
                 {...register("image", { required: true })}
                 type="file"
-                placeholder="Enter profile image URL"
               />
             </div>
 
