@@ -12,15 +12,17 @@ import {
   SidebarTrigger,
 } from "../ui/sidebar";
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { Keyboard } from "lucide-react";
+import { Keyboard, Menu } from "lucide-react";
 
 const DashboardLayout = () => {
   const location = useLocation();
   return (
     <div className="flex">
-      <div>
-        <SidebarProvider>
-          <SidebarTrigger className="flex md:hidden" />
+      <div className="">
+        <SidebarProvider className="relative">
+          <SidebarTrigger className="absolute top-2 left-2 flex md:hidden">
+            <Menu scale={50} />
+          </SidebarTrigger>
           <Sidebar>
             <SidebarContent>
               <SidebarGroup>
@@ -56,7 +58,7 @@ const DashboardLayout = () => {
           </Sidebar>
         </SidebarProvider>
       </div>
-      <div className="min-h-screen w-full">
+      <div className="min-h-screen w-full mt-4">
         <Outlet />
       </div>
     </div>
